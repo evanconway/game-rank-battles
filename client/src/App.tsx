@@ -1,5 +1,7 @@
+import Battle from "./components/Battle.tsx";
+
 function App() {
-  return <div>hello world</div>;
+  return <Battle />;
 }
 
-export default App
+export default App;
