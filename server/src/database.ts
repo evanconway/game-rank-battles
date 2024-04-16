@@ -32,9 +32,10 @@ const getDatabaseFunctions = async () => {
       summary: string,
       igdbUrl: string,
       coverUrl: string,
+      rating: number,
     ) => {
       await db.run(
-        "INSERT OR REPLACE INTO game VALUES ($id, $name, $release_date, $summary, $igdb_url, $cover_url)",
+        "INSERT OR REPLACE INTO game VALUES ($id, $name, $release_date, $summary, $igdb_url, $cover_url, $rating)",
         {
           $id: id,
           $name: name,
@@ -42,6 +43,7 @@ const getDatabaseFunctions = async () => {
           $summary: summary,
           $igdb_url: igdbUrl,
           $cover_url: coverUrl,
+          $rating: rating,
         },
       );
     },

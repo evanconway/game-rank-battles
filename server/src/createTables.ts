@@ -21,7 +21,8 @@ export const createTables = async (db: Database) => {
 				release_date INTEGER,
 				summary      TEXT,
 				igdb_url     TEXT,
-				cover_url    TEXT
+				cover_url    TEXT,
+				rating       NUMERIC
 		);
 	`);
   console.log("tables created");

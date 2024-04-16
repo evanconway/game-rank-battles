@@ -40,6 +40,7 @@ const startServer = async () => {
         summary: row["summary"] as string,
         igdbUrl: row["url"] as string,
         coverUrl: coverArtUrlFromMap === undefined ? "" : coverArtUrlFromMap,
+        rating: row["rating"],
       };
       await databaseAddGame(
         result.id,
@@ -48,6 +49,7 @@ const startServer = async () => {
         result.summary,
         result.igdbUrl,
         result.coverUrl,
+        result.rating,
       );
     }
   }
