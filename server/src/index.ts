@@ -1,5 +1,6 @@
 import express from "express";
 import { config } from "dotenv";
+import getDatabaseFunctions from "./database";
 
 config();
 
@@ -8,6 +9,11 @@ const apiBase = "https://api.igdb.com/v4/";
 const startServer = async () => {
   const clientId = process.env.CLIENT_ID;
   const clientSecret = process.env.CLIENT_SECRET;
+
+  if (clientId === undefined)
+    throw new Error("CLIENT_ID is not defined in .env");
+  if (clientSecret === undefined)
+    throw new Error("CLIENT_SECRET is not defined in .env");
 
   // get access token for igdb api
   const response = await (
@@ -41,17 +47,19 @@ const startServer = async () => {
   // platform id 19 is super nintendo
 
   const testRequest = await (
-    await fetch(apiBase + "games", {
+    await fetch(apiBase + "platforms", {
       method: "POST",
       headers: {
         "Client-ID": clientId,
         Authorization: `Bearer ${accessToken}`,
       },
-      body: "fields *; where platforms = [19] ; limit 500;",
+      body: "fields *;",
     })
   ).json();
 
   console.log("test request response:", testRequest);
+
+  await getDatabaseFunctions();
 
   const app = express();
   app.use(express.json());
