@@ -55,6 +55,7 @@ const getAPIFunctions = async () => {
       return await apiFetch("platforms", `fields *; limit ${IGDB_LIMIT};`);
     },
     getGamesByPlatform: async (platformId: number) => {
+      // TODO: modify so we exclude certain games like ones only released in bundles, or re-releases
       return await apiFetch(
         "games",
         `fields *; where platforms = [${platformId}]; limit ${GAMES_PER_PLATFORM}; sort rating desc;`,

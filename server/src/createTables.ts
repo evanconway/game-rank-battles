@@ -25,5 +25,16 @@ export const createTables = async (db: Database) => {
 				rating       NUMERIC
 		);
 	`);
+
+  await db.run(`
+		CREATE TABLE IF NOT EXISTS elo (
+				game INTEGER PRIMARY KEY
+										UNIQUE
+										NOT NULL,
+				rank NUMERIC DEFAULT (1400) 
+										NOT NULL
+		);
+	`);
+
   console.log("tables created");
 };

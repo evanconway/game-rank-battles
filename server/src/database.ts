@@ -46,6 +46,9 @@ const getDatabaseFunctions = async () => {
           $rating: rating,
         },
       );
+      await db.run("INSERT OR IGNORE INTO elo (game) VALUES ($game);", {
+        $game: id,
+      });
     },
   };
 };
