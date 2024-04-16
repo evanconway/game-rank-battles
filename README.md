@@ -1,6 +1,6 @@
 # game rank battles
 
-Using IGDM for data. 
+Using IGDB for data. 
 https://api-docs.igdb.com/#getting-started
 
 APICalypse syntax in the body
