@@ -2,9 +2,8 @@ import { config } from "dotenv";
 
 config();
 
-const apiBase = "https://api.igdb.com/v4/";
-
 const IGDB_LIMIT = 500;
+const GAMES_PER_PLATFORM = 20; // low number for dev right now
 
 const getAccess = async () => {
   const clientId = process.env.CLIENT_ID;
@@ -40,7 +39,7 @@ const getAPIFunctions = async () => {
 
   const apiFetch = async (urlEnd: string, body: string) => {
     return (await (
-      await fetch(apiBase + urlEnd, {
+      await fetch("https://api.igdb.com/v4/" + urlEnd, {
         method: "POST",
         headers: {
           "Client-ID": clientId,
@@ -58,11 +57,15 @@ const getAPIFunctions = async () => {
     getGamesByPlatform: async (platformId: number) => {
       return await apiFetch(
         "games",
-        `fields *; where platforms = [${platformId}]; limit ${IGDB_LIMIT}; sort rating desc;`,
+        `fields *; where platforms = [${platformId}]; limit ${GAMES_PER_PLATFORM}; sort rating desc;`,
       );
     },
     getGameCoverArtUrl: async (gameId: number) => {
-      return await apiFetch("covers", `fields *; where game = ${gameId};`);
+      const row = (
+        await apiFetch("covers", `fields *; where game = ${gameId};`)
+      )[0];
+      const url = row["url"] as string;
+      return "https:" + url.replace("t_thumb", "t_cover_big");
     },
   };
 };

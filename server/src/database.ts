@@ -11,7 +11,11 @@ const getDatabaseFunctions = async () => {
   await createTables(db);
 
   return {
-    addPlatform: async (id: number, name: string, abbreviation: string) => {
+    databaseAddPlatform: async (
+      id: number,
+      name: string,
+      abbreviation: string,
+    ) => {
       await db.run(
         "INSERT OR REPLACE INTO platform VALUES ($id, $name, $abbrev)",
         {
@@ -21,7 +25,7 @@ const getDatabaseFunctions = async () => {
         },
       );
     },
-    addGame: async (
+    databaseAddGame: async (
       id: number,
       name: string,
       releaseDate: number,
