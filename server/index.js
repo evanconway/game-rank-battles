@@ -3,6 +3,8 @@ import { config } from "dotenv";
 
 config();
 
+const apiBase = "https://api.igdb.com/v4/";
+
 const startServer = async () => {
   const clientId = process.env.CLIENT_ID;
   const clientSecret = process.env.CLIENT_SECRET;
@@ -25,14 +27,25 @@ const startServer = async () => {
 
   console.log("connected to api, access token:", accessToken);
 
+  // const testRequest = await (
+  //   await fetch("https://api.igdb.com/v4/games", {
+  //     method: "POST",
+  //     headers: {
+  //       "Client-ID": clientId,
+  //       Authorization: `Bearer ${accessToken}`,
+  //     },
+  //     body: "fields *; limit 10;",
+  //   })
+  // ).json();
+
   const testRequest = await (
-    await fetch("https://api.igdb.com/v4/games", {
+    await fetch(apiBase + "platforms", {
       method: "POST",
       headers: {
         "Client-ID": clientId,
         Authorization: `Bearer ${accessToken}`,
       },
-      body: "fields name,platforms; limit 10;",
+      body: "fields *; limit 5;",
     })
   ).json();
 
