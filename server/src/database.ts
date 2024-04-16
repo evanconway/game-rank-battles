@@ -1,19 +1,21 @@
 import { Database as Sqlite3Database } from "sqlite3";
 import { open } from "sqlite";
 import { createTables } from "./createTables";
-import { Game } from "api";
+import { Game } from "./api";
+import { eloGetNewRanks } from "./elo";
 
 export type DatabaseAddPlatform = (
   id: number,
   name: string,
   abbreviation: string,
 ) => Promise<void>;
-
 export type DatabaseAddGame = (game: Game) => Promise<void>;
-
 export type DatabaseGetGameIds = () => Promise<number[]>;
-
 export type DatabaseGetGameById = (gameId: number) => Promise<Game>;
+export type DatabaseUpdateGameElo = (
+  victorId: number,
+  loserId: number,
+) => Promise<void>;
 
 const getDatabaseFunctions = async () => {
   const db = await open({
@@ -75,11 +77,43 @@ const getDatabaseFunctions = async () => {
     } as Game;
   };
 
+  // TODO: Research transactions in SQLite and ensure logic here doesn't get interrupted
+  const databaseUpdateGameElo: DatabaseUpdateGameElo = async (
+    victorId: number,
+    loserId: number,
+  ) => {
+    const rankVictor = (
+      await db.get("SELECT rank FROM elo WHERE game = $id", {
+        $id: victorId,
+      })
+    )["rank"] as number;
+    const rankLoser = (
+      await db.get("SELECT rank FROM elo WHERE game = $id", {
+        $id: loserId,
+      })
+    )["rank"] as number;
+
+    const { newRankVictor, newRankLoser } = eloGetNewRanks(
+      rankVictor,
+      rankLoser,
+    );
+
+    await db.run("UPDATE elo SET rank = $rank WHERE game = $id", {
+      $rank: newRankVictor,
+      $id: victorId,
+    });
+    await db.run("UPDATE elo SET rank = $rank WHERE game = $id", {
+      $rank: newRankLoser,
+      $id: loserId,
+    });
+  };
+
   return {
     databaseAddPlatform,
     databaseAddGame,
     databaseGetGameIds,
     databaseGetGameById,
+    databaseUpdateGameElo,
   };
 };
 

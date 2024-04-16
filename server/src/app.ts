@@ -1,4 +1,8 @@
-import { DatabaseGetGameById, DatabaseGetGameIds } from "database";
+import {
+  DatabaseGetGameById,
+  DatabaseGetGameIds,
+  DatabaseUpdateGameElo,
+} from "database";
 import { Router } from "express";
 import { v4 as uuid } from "uuid";
 
@@ -10,6 +14,7 @@ interface Battle {
 const appRouter = (
   databaseGetGameIds: DatabaseGetGameIds,
   databaseGetGameById: DatabaseGetGameById,
+  databaseUpdateGameElo: DatabaseUpdateGameElo,
 ) => {
   const battles = new Map<string, Battle>();
 
@@ -36,6 +41,34 @@ const appRouter = (
 
     res.json({ battleId, gameA, gameB });
     return;
+  });
+
+  router.post("/battle/end", async (req, res) => {
+    const battleId = req.body.battleId as string;
+    const battle = battles.get(battleId);
+    if (battle === undefined) {
+      res.sendStatus(404);
+      return;
+    } else {
+      battles.delete(battleId);
+    }
+
+    const victorId = req.body.victorId as number;
+    const loserId = req.body.loserId as number;
+
+    if (victorId !== battle.gameA && victorId !== battle.gameB) {
+      res.sendStatus(404);
+      return;
+    }
+
+    if (loserId !== battle.gameA && loserId !== battle.gameB) {
+      res.sendStatus(404);
+      return;
+    }
+
+    await databaseUpdateGameElo(victorId, loserId);
+
+    res.sendStatus(200);
   });
 
   router.get("/test", (req, res) => {
