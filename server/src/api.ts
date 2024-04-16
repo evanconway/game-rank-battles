@@ -3,7 +3,7 @@ import { config } from "dotenv";
 config();
 
 const IGDB_LIMIT = 500;
-const GAMES_PER_PLATFORM = 20; // low number for dev right now
+const GAMES_PER_PLATFORM = 100;
 
 const getAccess = async () => {
   const clientId = process.env.CLIENT_ID;
@@ -60,12 +60,11 @@ const getAPIFunctions = async () => {
         `fields *; where platforms = [${platformId}]; limit ${GAMES_PER_PLATFORM}; sort rating desc;`,
       );
     },
-    getGameCoverArtUrl: async (gameId: number) => {
-      const row = (
-        await apiFetch("covers", `fields *; where game = ${gameId};`)
-      )[0];
-      const url = row["url"] as string;
-      return "https:" + url.replace("t_thumb", "t_cover_big");
+    getGameCoverArtUrls: async (gameIds: number[]) => {
+      return await apiFetch(
+        "covers",
+        `fields *; where game = (${gameIds.join(",")}); limit ${IGDB_LIMIT};`,
+      );
     },
   };
 };

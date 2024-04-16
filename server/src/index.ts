@@ -7,7 +7,7 @@ import getAPIFunctions from "./api";
 const platforms = [19];
 
 const startServer = async () => {
-  const { getPlatforms, getGamesByPlatform, getGameCoverArtUrl } =
+  const { getPlatforms, getGamesByPlatform, getGameCoverArtUrls } =
     await getAPIFunctions();
   const { databaseAddPlatform, databaseAddGame } = await getDatabaseFunctions();
 
@@ -21,17 +21,26 @@ const startServer = async () => {
   console.log("setting up games, this could take a while...");
   for (const platformId of platforms) {
     const games = await getGamesByPlatform(platformId);
+    const coverArts = await getGameCoverArtUrls(games.map((g) => g["id"]));
+    const gameCoverArtMap = new Map<number, string>();
+    for (const row of coverArts) {
+      gameCoverArtMap.set(
+        row["game"] as number,
+        `https://images.igdb.com/igdb/image/upload/t_cover_big/${row["image_id"]}.jpg`,
+      );
+    }
     console.log(`${games.length} games found for platform id ${platformId}`);
     for (const row of games) {
+      const gameId = row["id"] as number;
+      const coverArtUrlFromMap = gameCoverArtMap.get(gameId);
       const result = {
-        id: row["id"] as number,
+        id: gameId,
         name: row["name"] as string,
         releaseDate: row["first_release_date"] as number,
         summary: row["summary"] as string,
         igdbUrl: row["url"] as string,
-        coverUrl: await getGameCoverArtUrl(row["id"] as number),
+        coverUrl: coverArtUrlFromMap === undefined ? "" : coverArtUrlFromMap,
       };
-      console.log(`${result.name}: ${result.coverUrl}`);
       await databaseAddGame(
         result.id,
         result.name,
