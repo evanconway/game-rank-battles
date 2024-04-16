@@ -1,10 +1,13 @@
 import express from "express";
+import path from "path";
 import getDatabaseFunctions from "./database";
 import getAPIFunctions from "./api";
 
 // hand picked game platforms the website will support
 // platforms are ids from IGDB
 const platforms = [19];
+
+const staticFilesRelativeDir = "../../client/dist";
 
 const startServer = async () => {
   const { getPlatforms, getGamesByPlatform, getGameCoverArtUrls } =
@@ -58,6 +61,17 @@ const startServer = async () => {
 
   const app = express();
   app.use(express.json());
+
+  app.use("/app", (req, res, next) => {
+    res.send("app routes not defined yet");
+    return;
+  });
+
+  app.use(express.static(path.join(__dirname, staticFilesRelativeDir)));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, staticFilesRelativeDir, "index.html"));
+  });
 
   app.listen(3000);
 };
