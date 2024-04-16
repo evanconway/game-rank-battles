@@ -38,14 +38,16 @@ const startServer = async () => {
   //   })
   // ).json();
 
+  // platform id 19 is super nintendo
+
   const testRequest = await (
-    await fetch(apiBase + "platforms", {
+    await fetch(apiBase + "games", {
       method: "POST",
       headers: {
         "Client-ID": clientId,
         Authorization: `Bearer ${accessToken}`,
       },
-      body: "fields *; limit 5;",
+      body: "fields *; where platforms = [19] ; limit 500;",
     })
   ).json();
 
