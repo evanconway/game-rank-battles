@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import getDatabaseFunctions from "./database";
 import getAPIFunctions from "./api";
+import appRouter from "./app";
 
 // hand picked game platforms the website will support
 // platforms are ids from IGDB
@@ -62,10 +63,7 @@ const startServer = async () => {
   const app = express();
   app.use(express.json());
 
-  app.use("/app", (req, res, next) => {
-    res.send("app routes not defined yet");
-    return;
-  });
+  app.use("/app", appRouter);
 
   app.use(express.static(path.join(__dirname, staticFilesRelativeDir)));
 
@@ -73,7 +71,10 @@ const startServer = async () => {
     res.sendFile(path.join(__dirname, staticFilesRelativeDir, "index.html"));
   });
 
-  app.listen(3000);
+  const port = 3000;
+  app.listen(port, () => {
+    console.log(`app running at http://localhost:${port}`);
+  });
 };
 
 startServer();
