@@ -1,7 +1,7 @@
 import express from "express";
 import path from "path";
 import getDatabaseFunctions from "./database";
-import getAPIFunctions from "./api";
+import getAPIFunctions, { Game } from "./api";
 import appRouter from "./app";
 
 // hand picked game platforms the website will support
@@ -13,7 +13,12 @@ const staticFilesRelativeDir = "../../client/dist";
 const startServer = async () => {
   const { getPlatforms, getGamesByPlatform, getGameCoverArtUrls } =
     await getAPIFunctions();
-  const { databaseAddPlatform, databaseAddGame } = await getDatabaseFunctions();
+  const {
+    databaseAddPlatform,
+    databaseAddGame,
+    databaseGetGameIds,
+    databaseGetGameById,
+  } = await getDatabaseFunctions();
 
   // setup platforms
   const igdbPlatforms = await getPlatforms();
@@ -35,35 +40,28 @@ const startServer = async () => {
     }
     console.log(`${games.length} games found for platform id ${platformId}`);
     for (const row of games) {
-      const gameId = row["id"] as number;
+      const gameId = row["id"];
       const coverArtUrlFromMap = gameCoverArtMap.get(gameId);
-      const result = {
+      const result: Game = {
         id: gameId,
-        name: row["name"] as string,
-        releaseDate: row["first_release_date"] as number,
-        summary: row["summary"] as string,
-        igdbUrl: row["url"] as string,
+        name: row["name"],
+        releaseDate: row["first_release_date"],
+        summary: row["summary"],
+        igdbUrl: row["url"],
         coverUrl: coverArtUrlFromMap === undefined ? "" : coverArtUrlFromMap,
         rating: row["rating"],
       };
-      await databaseAddGame(
-        result.id,
-        result.name,
-        result.releaseDate,
-        result.summary,
-        result.igdbUrl,
-        result.coverUrl,
-        result.rating,
-      );
+      await databaseAddGame(result);
     }
   }
 
   console.log("game setup complete");
 
+  // endpoints
   const app = express();
   app.use(express.json());
 
-  app.use("/app", appRouter);
+  app.use("/app", appRouter(databaseGetGameIds, databaseGetGameById));
 
   app.use(express.static(path.join(__dirname, staticFilesRelativeDir)));
 

@@ -2,6 +2,16 @@ import { config } from "dotenv";
 
 config();
 
+export interface Game {
+  id: number;
+  name: string;
+  releaseDate: number;
+  summary: string;
+  igdbUrl: string;
+  coverUrl: string;
+  rating: number;
+}
+
 const IGDB_LIMIT = 500;
 const GAMES_PER_PLATFORM = 100;
 
