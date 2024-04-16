@@ -1,65 +1,45 @@
 import express from "express";
 import { config } from "dotenv";
 import getDatabaseFunctions from "./database";
+import getAPIFunctions from "./api";
 
 config();
 
 const apiBase = "https://api.igdb.com/v4/";
 
+// hand picked game platforms the website will support
+// platforms are ids from IGDB
+const platforms = [19];
+
 const startServer = async () => {
-  const clientId = process.env.CLIENT_ID;
-  const clientSecret = process.env.CLIENT_SECRET;
+  const { getPlatforms, getGamesByPlatform } = await getAPIFunctions();
+  const { addPlatform } = await getDatabaseFunctions();
 
-  if (clientId === undefined)
-    throw new Error("CLIENT_ID is not defined in .env");
-  if (clientSecret === undefined)
-    throw new Error("CLIENT_SECRET is not defined in .env");
+  // setup platforms
+  const igdbPlatforms = await getPlatforms();
+  igdbPlatforms.forEach((row) => {
+    addPlatform(row["id"], row["name"], row["abbreviation"]);
+  });
 
-  // get access token for igdb api
-  const response = await (
-    await fetch(
-      `https://id.twitch.tv/oauth2/token?client_id=${clientId}&client_secret=${clientSecret}&grant_type=client_credentials`,
-      {
-        method: "POST",
-      },
-    )
-  ).json();
+  // setup games
+  console.log("setting up games, this could take a while...");
+  platforms.forEach(async (platform) => {
+    const games = (await getGamesByPlatform(platform)).map((row) => {
+      const result = {
+        id: row["id"],
+        name: row["name"],
+        releaseDate: row["first_release_date"],
+        summary: row["summary"],
+        igdbUrl: row["url"],
+        coverUrl: "NOT_IMPLEMENTED_YET",
+      };
+      // get cover art url
 
-  const {
-    access_token: accessToken,
-    expires_in: expiresIn,
-    token_type: bearer,
-  } = response;
-
-  console.log("connected to api, access token:", accessToken);
-
-  // const testRequest = await (
-  //   await fetch("https://api.igdb.com/v4/games", {
-  //     method: "POST",
-  //     headers: {
-  //       "Client-ID": clientId,
-  //       Authorization: `Bearer ${accessToken}`,
-  //     },
-  //     body: "fields *; limit 10;",
-  //   })
-  // ).json();
-
-  // platform id 19 is super nintendo
-
-  const testRequest = await (
-    await fetch(apiBase + "platforms", {
-      method: "POST",
-      headers: {
-        "Client-ID": clientId,
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: "fields *;",
-    })
-  ).json();
-
-  console.log("test request response:", testRequest);
-
-  await getDatabaseFunctions();
+      return result;
+    });
+    console.log(games);
+  });
+  console.log("game setup complete");
 
   const app = express();
   app.use(express.json());
