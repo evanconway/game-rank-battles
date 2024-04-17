@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { BRAND_COLOR } from "../styles";
+import { useIsPhone } from "../util";
 
 interface Rank {
   coverUrl: string;
@@ -18,6 +19,8 @@ const Ranks = () => {
     g();
   }, [setRanks]);
 
+  const isPhone = useIsPhone();
+
   return (
     <ul
       style={{
@@ -34,7 +37,6 @@ const Ranks = () => {
             color: "white",
             textAlign: "center",
             fontSize: "1.25em",
-            paddingBottom: "0.5em",
           }}
         >
           <div
@@ -46,15 +48,24 @@ const Ranks = () => {
           >
             #{i + 1}
           </div>
-          <img
-            style={{ width: "100%", maxWidth: "400px" }}
-            src={rank.coverUrl}
-          />
-          <div>{rank.name}</div>
-          <div>{Math.floor(rank.rank)}</div>
-          <a target="_blank" style={{ color: "white" }} href={rank.igdbUrl}>
-            Learn More
-          </a>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: isPhone ? "column" : "row",
+            }}
+          >
+            <img
+              style={{ width: "100%", maxWidth: "400px" }}
+              src={rank.coverUrl}
+            />
+            <div style={{ padding: "0.5em" }}>
+              <div>{rank.name}</div>
+              <div>{Math.floor(rank.rank)}</div>
+              <a target="_blank" style={{ color: "white" }} href={rank.igdbUrl}>
+                Learn More
+              </a>
+            </div>
+          </div>
         </li>
       ))}
     </ul>
