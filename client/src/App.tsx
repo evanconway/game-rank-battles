@@ -1,13 +1,8 @@
 import Battle from "./components/Battle.tsx";
+import { applyBodyHTMLStyles } from "./styles.ts";
 
 const App = () => {
-  const body = Array.from(document.getElementsByTagName("body"))[0];
-  body.style["margin"] = "0";
-
-  const html = Array.from(document.getElementsByTagName("html"))[0];
-  html.style["overflowY"] = "scroll";
-  html.style["fontFamily"] = "Arial, Helvetica, sans-serif";
-  html.style["background"] = "#6d0000";
+  applyBodyHTMLStyles();
 
   return (
     <div style={{ background: "white", maxWidth: "900px", margin: "0 auto" }}>

@@ -1,3 +1,5 @@
+import { BRAND_COLOR } from "../styles";
+
 export interface GameData {
   name: string;
   coverUrl: string;
@@ -25,7 +27,7 @@ const Game = ({
         textAlign: "center",
         padding: "1em",
         margin: "0.5em",
-        border: "0.25em solid",
+        border: `0.25em ${BRAND_COLOR} solid`,
       }}
     >
       <h3>{name}</h3>
