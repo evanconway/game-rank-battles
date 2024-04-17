@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import Game, { GameData } from "./Game";
+import Game from "./Game";
 import GameDescription from "./GameDescription";
 
 const Battle = () => {
@@ -32,7 +32,7 @@ const Battle = () => {
   const gameAId = gameA["id"] as number;
   const gameBId = gameB["id"] as number;
 
-  const gameDataA: GameData = {
+  const gameDataA = {
     name: gameA["name"] as string,
     coverUrl: gameA["coverUrl"] as string,
     igdbUrl: gameA["igdbUrl"] as string,
@@ -40,7 +40,7 @@ const Battle = () => {
     summary: gameA["summary"] as string,
   };
 
-  const gameDataB: GameData = {
+  const gameDataB = {
     name: gameB["name"] as string,
     coverUrl: gameB["coverUrl"] as string,
     igdbUrl: gameB["igdbUrl"] as string,
@@ -69,20 +69,12 @@ const Battle = () => {
     <div>
       <div style={{ display: "flex" }}>
         <Game
-          name={gameDataA.name}
           coverUrl={gameDataA.coverUrl}
-          igdbUrl={gameDataA.igdbUrl}
-          releaseDate={gameDataA.releaseDate}
-          summary={gameDataA.summary}
           onClick={() => submitVictor(gameAId, gameBId)}
           disabled={uploading}
         />
         <Game
-          name={gameDataB.name}
           coverUrl={gameDataB.coverUrl}
-          igdbUrl={gameDataB.igdbUrl}
-          releaseDate={gameDataB.releaseDate}
-          summary={gameDataB.summary}
           onClick={() => submitVictor(gameBId, gameAId)}
           disabled={uploading}
         />

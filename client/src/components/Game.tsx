@@ -1,18 +1,9 @@
-import { BRAND_COLOR } from "../styles";
-
-export interface GameData {
-  name: string;
-  coverUrl: string;
-  igdbUrl: string;
-  releaseDate: number;
-  summary: string;
-}
-
 const Game = ({
   coverUrl,
   onClick,
   disabled,
-}: GameData & {
+}: {
+  coverUrl: string;
   onClick: () => void;
   disabled: boolean;
 }) => {
@@ -20,16 +11,13 @@ const Game = ({
     <div
       style={{
         width: "50%",
-        textAlign: "center",
-        display: "flex",
-        alignContent: "center",
-        flexDirection: "column",
-        background: BRAND_COLOR,
+        background: "black",
       }}
     >
       <button
         onClick={onClick}
         style={{
+          width: "100%",
           padding: 0,
           margin: 0,
           border: "none",
