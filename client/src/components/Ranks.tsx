@@ -100,9 +100,12 @@ const Ranks = () => {
               })}
             </div>
             <div>
-              <section style={{ color: "white" }}>
-                <img src={rank.coverUrl} />
-                <h2>{rank.name}</h2>
+              <section style={{ color: "white", width: "100%" }}>
+                <img
+                  style={{ float: "left", shapeOutside: "padding-box" }}
+                  src={rank.coverUrl}
+                />
+                <h2 style={{ marginTop: 0 }}>{rank.name}</h2>
                 <p>
                   {rank.summary}{" "}
                   <a
@@ -115,6 +118,7 @@ const Ranks = () => {
                 </p>
               </section>
               <div>{Math.floor(rank.rank)}</div>
+              <div style={{ clear: "both" }}></div>
             </div>
           </li>
         ),
