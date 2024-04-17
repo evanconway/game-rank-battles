@@ -9,10 +9,8 @@ export interface GameData {
 }
 
 const Game = ({
-  name,
-  coverUrl,
   igdbUrl,
-  releaseDate,
+  coverUrl,
   summary,
   onClick,
   disabled,
@@ -25,12 +23,12 @@ const Game = ({
       style={{
         width: "50%",
         textAlign: "center",
-        padding: "1em",
-        margin: "0.5em",
-        border: `0.25em ${BRAND_COLOR} solid`,
+        display: "flex",
+        alignContent: "center",
+        flexDirection: "column",
+        background: BRAND_COLOR,
       }}
     >
-      <h3>{name}</h3>
       <button
         onClick={onClick}
         style={{
@@ -51,11 +49,20 @@ const Game = ({
           src={coverUrl}
         ></img>
       </button>
-      <div>Released {new Date(releaseDate * 1000).toDateString()}</div>
-      <p style={{ textAlign: "start" }}>{summary}</p>
-      <a href={igdbUrl} target="_blank">
-        see more...
-      </a>
+      <section
+        style={{
+          margin: 0,
+          padding: "0.5em",
+          textAlign: "start",
+          fontSize: "1.25em",
+          color: "white",
+        }}
+      >
+        <p>{summary}</p>
+        <a href={igdbUrl} style={{ color: "white" }}>
+          learn More
+        </a>
+      </section>
     </div>
   );
 };

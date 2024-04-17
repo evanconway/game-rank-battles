@@ -64,26 +64,68 @@ const Battle = () => {
     setUploading(false);
   };
 
+  const gameHeaderStyles: React.CSSProperties = {
+    margin: 0,
+    width: "50%",
+    color: "black",
+    textAlign: "center",
+    padding: "0.25em",
+    fontSize: "1.5em",
+  };
+
+  const learnMoreStyles: React.CSSProperties = {
+    width: "50%",
+    background: "black",
+    color: "white",
+    textAlign: "center",
+    fontSize: "1.3em",
+    padding: "0.25em",
+  };
+
   return (
-    <div style={{ display: "flex" }}>
-      <Game
-        name={gameDataA.name}
-        coverUrl={gameDataA.coverUrl}
-        igdbUrl={gameDataA.igdbUrl}
-        releaseDate={gameDataA.releaseDate}
-        summary={gameDataA.summary}
-        onClick={() => submitVictor(gameAId, gameBId)}
-        disabled={uploading}
-      />
-      <Game
-        name={gameDataB.name}
-        coverUrl={gameDataB.coverUrl}
-        igdbUrl={gameDataB.igdbUrl}
-        releaseDate={gameDataB.releaseDate}
-        summary={gameDataB.summary}
-        onClick={() => submitVictor(gameBId, gameAId)}
-        disabled={uploading}
-      />
+    <div>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <h2 style={gameHeaderStyles}>{gameDataA.name}</h2>
+        <h2 style={gameHeaderStyles}>{gameDataB.name}</h2>
+      </div>
+      <h2
+        style={{
+          margin: 0,
+          background: "black",
+          color: "white",
+          textAlign: "center",
+        }}
+      >
+        VS
+      </h2>
+      <div style={{ display: "flex" }}>
+        <Game
+          name={gameDataA.name}
+          coverUrl={gameDataA.coverUrl}
+          igdbUrl={gameDataA.igdbUrl}
+          releaseDate={gameDataA.releaseDate}
+          summary={gameDataA.summary}
+          onClick={() => submitVictor(gameAId, gameBId)}
+          disabled={uploading}
+        />
+        <Game
+          name={gameDataB.name}
+          coverUrl={gameDataB.coverUrl}
+          igdbUrl={gameDataB.igdbUrl}
+          releaseDate={gameDataB.releaseDate}
+          summary={gameDataB.summary}
+          onClick={() => submitVictor(gameBId, gameAId)}
+          disabled={uploading}
+        />
+      </div>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <a href={gameDataA.igdbUrl} style={learnMoreStyles}>
+          learn More
+        </a>
+        <a href={gameDataB.igdbUrl} style={learnMoreStyles}>
+          Learn More
+        </a>
+      </div>
     </div>
   );
 };
