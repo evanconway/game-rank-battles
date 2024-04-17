@@ -13,7 +13,7 @@ export const useIsPhone = () => {
       setIsPhone(window.innerWidth <= 700);
     };
     window.addEventListener("resize", onResize);
-    onResize;
+    onResize();
     return () => window.removeEventListener("resize", onResize);
   }, [setIsPhone]);
 

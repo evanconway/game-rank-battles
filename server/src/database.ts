@@ -20,6 +20,7 @@ export type DatabaseUpdateGameElo = (
 interface GameWithRank {
   name: string;
   rank: number;
+  summary: string;
   igdbUrl: string;
   coverUrl: string;
 }
@@ -129,6 +130,7 @@ const getDatabaseFunctions = async () => {
           name: row["name"],
           igdbUrl: row["igdb_url"],
           coverUrl: row["cover_url"],
+          summary: row["summary"],
           rank: row["rank"],
         }) as GameWithRank,
     );
