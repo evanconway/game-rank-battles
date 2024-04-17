@@ -68,7 +68,8 @@ const appRouter = (
 
     await databaseUpdateGameElo(victorId, loserId);
 
-    res.sendStatus(200);
+    res.status(200).json({ victorId });
+    return;
   });
 
   router.get("/test", (req, res) => {
