@@ -19,6 +19,7 @@ const startServer = async () => {
     databaseGetGameIds,
     databaseGetGameById,
     databaseUpdateGameElo,
+    databaseGetGameRanks,
   } = await getDatabaseFunctions();
 
   // setup platforms
@@ -64,7 +65,12 @@ const startServer = async () => {
 
   app.use(
     "/app",
-    appRouter(databaseGetGameIds, databaseGetGameById, databaseUpdateGameElo),
+    appRouter(
+      databaseGetGameIds,
+      databaseGetGameById,
+      databaseUpdateGameElo,
+      databaseGetGameRanks,
+    ),
   );
 
   app.use(express.static(path.join(__dirname, staticFilesRelativeDir)));

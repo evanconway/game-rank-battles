@@ -1,6 +1,5 @@
 import { Outlet } from "react-router-dom";
 import Link from "./components/Link.tsx";
-import Battle from "./components/Battle.tsx";
 import { applyBodyHTMLStyles } from "./styles.ts";
 
 const App = () => {

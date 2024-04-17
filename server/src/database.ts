@@ -4,6 +4,7 @@ import { createTables } from "./createTables";
 import { Game } from "./api";
 import { eloGetNewRanks } from "./elo";
 
+// function signatures
 export type DatabaseAddPlatform = (
   id: number,
   name: string,
@@ -16,7 +17,15 @@ export type DatabaseUpdateGameElo = (
   victorId: number,
   loserId: number,
 ) => Promise<void>;
+interface GameWithRank {
+  name: string;
+  rank: number;
+  igdbUrl: string;
+  coverUrl: string;
+}
+export type DatabaseGetGameRanks = (page: number) => Promise<GameWithRank[]>;
 
+// function definitions
 const getDatabaseFunctions = async () => {
   const db = await open({
     filename: "database.db",
@@ -108,12 +117,30 @@ const getDatabaseFunctions = async () => {
     });
   };
 
+  const databaseGetGameRanks: DatabaseGetGameRanks = async (page: number) => {
+    const gamesPerPage = 20;
+    const rows = await db.all(
+      "SELECT * FROM game JOIN elo ON game.id = elo.game ORDER BY rank DESC LIMIT $offset, $limit;",
+      { $offset: page * gamesPerPage, $limit: gamesPerPage },
+    );
+    return rows.map(
+      (row) =>
+        ({
+          name: row["name"],
+          igdbUrl: row["igdb_url"],
+          coverUrl: row["cover_url"],
+          rank: row["rank"],
+        }) as GameWithRank,
+    );
+  };
+
   return {
     databaseAddPlatform,
     databaseAddGame,
     databaseGetGameIds,
     databaseGetGameById,
     databaseUpdateGameElo,
+    databaseGetGameRanks,
   };
 };
 

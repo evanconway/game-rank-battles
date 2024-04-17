@@ -1,6 +1,7 @@
 import {
   DatabaseGetGameById,
   DatabaseGetGameIds,
+  DatabaseGetGameRanks,
   DatabaseUpdateGameElo,
 } from "database";
 import { Router } from "express";
@@ -15,6 +16,7 @@ const appRouter = (
   databaseGetGameIds: DatabaseGetGameIds,
   databaseGetGameById: DatabaseGetGameById,
   databaseUpdateGameElo: DatabaseUpdateGameElo,
+  databaseGetGameRanks: DatabaseGetGameRanks,
 ) => {
   const battles = new Map<string, Battle>();
 
@@ -72,8 +74,8 @@ const appRouter = (
     return;
   });
 
-  router.get("/test", (req, res) => {
-    res.send("you found the test route");
+  router.get("/ranks", async (req, res) => {
+    res.json(await databaseGetGameRanks(0));
   });
 
   router.use("*", (req, res) => {
