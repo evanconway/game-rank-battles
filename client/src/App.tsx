@@ -19,7 +19,6 @@ const App = () => {
         </h1>
       </div>
       <Battle />
-      <footer>Made by Evan Conway</footer>
     </div>
   );
 };

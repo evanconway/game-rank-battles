@@ -9,9 +9,7 @@ export interface GameData {
 }
 
 const Game = ({
-  igdbUrl,
   coverUrl,
-  summary,
   onClick,
   disabled,
 }: GameData & {
@@ -36,6 +34,7 @@ const Game = ({
           margin: 0,
           border: "none",
           cursor: disabled ? "default" : "pointer",
+          background: "black",
         }}
         disabled={disabled}
       >
@@ -49,20 +48,6 @@ const Game = ({
           src={coverUrl}
         ></img>
       </button>
-      <section
-        style={{
-          margin: 0,
-          padding: "0.5em",
-          textAlign: "start",
-          fontSize: "1.25em",
-          color: "white",
-        }}
-      >
-        <p>{summary}</p>
-        <a href={igdbUrl} style={{ color: "white" }}>
-          learn More
-        </a>
-      </section>
     </div>
   );
 };

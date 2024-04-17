@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import Game, { GameData } from "./Game";
+import GameDescription from "./GameDescription";
 
 const Battle = () => {
   const [battleData, setBattleData] = useState<Record<string, unknown> | null>(
@@ -64,40 +65,8 @@ const Battle = () => {
     setUploading(false);
   };
 
-  const gameHeaderStyles: React.CSSProperties = {
-    margin: 0,
-    width: "50%",
-    color: "black",
-    textAlign: "center",
-    padding: "0.25em",
-    fontSize: "1.5em",
-  };
-
-  const learnMoreStyles: React.CSSProperties = {
-    width: "50%",
-    background: "black",
-    color: "white",
-    textAlign: "center",
-    fontSize: "1.3em",
-    padding: "0.25em",
-  };
-
   return (
     <div>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <h2 style={gameHeaderStyles}>{gameDataA.name}</h2>
-        <h2 style={gameHeaderStyles}>{gameDataB.name}</h2>
-      </div>
-      <h2
-        style={{
-          margin: 0,
-          background: "black",
-          color: "white",
-          textAlign: "center",
-        }}
-      >
-        VS
-      </h2>
       <div style={{ display: "flex" }}>
         <Game
           name={gameDataA.name}
@@ -118,13 +87,28 @@ const Battle = () => {
           disabled={uploading}
         />
       </div>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <a href={gameDataA.igdbUrl} style={learnMoreStyles}>
-          learn More
-        </a>
-        <a href={gameDataB.igdbUrl} style={learnMoreStyles}>
-          Learn More
-        </a>
+      <div
+        style={{
+          margin: 0,
+          background: "black",
+          color: "white",
+          textAlign: "center",
+          fontSize: "2em",
+        }}
+      >
+        VS
+      </div>
+      <div style={{ display: "flex" }}>
+        <GameDescription
+          title={gameDataA.name}
+          summary={gameDataA.summary}
+          aboutLink={gameDataA.igdbUrl}
+        />
+        <GameDescription
+          title={gameDataB.name}
+          summary={gameDataB.summary}
+          aboutLink={gameDataB.igdbUrl}
+        />
       </div>
     </div>
   );
