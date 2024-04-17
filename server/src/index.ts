@@ -50,7 +50,7 @@ const startServer = async () => {
         summary: row["summary"],
         igdbUrl: row["url"],
         coverUrl: coverArtUrlFromMap === undefined ? "" : coverArtUrlFromMap,
-        rating: row["rating"],
+        rating: row["total_rating"],
       };
       await databaseAddGame(result);
     }

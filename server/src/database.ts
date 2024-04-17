@@ -19,7 +19,7 @@ export type DatabaseUpdateGameElo = (
 
 const getDatabaseFunctions = async () => {
   const db = await open({
-    filename: "../database.db",
+    filename: "database.db",
     driver: Sqlite3Database,
   });
 

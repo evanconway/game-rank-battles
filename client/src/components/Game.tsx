@@ -51,7 +51,9 @@ const Game = ({
       </button>
       <div>Released {new Date(releaseDate * 1000).toDateString()}</div>
       <p style={{ textAlign: "start" }}>{summary}</p>
-      <a href={igdbUrl}>see more...</a>
+      <a href={igdbUrl} target="_blank">
+        see more...
+      </a>
     </div>
   );
 };
