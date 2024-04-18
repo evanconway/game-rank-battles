@@ -14,7 +14,7 @@ const GameDescription = ({ gameData }: { gameData: GameData }) => {
       <h2>{gameData.name}</h2>
       <section style={{ fontSize: "1.25em" }}>
         <p>{gameData.summary}</p>
-        <a style={{ color: "white" }} href={gameData.igdbUrl}>
+        <a target="_blank" style={{ color: "white" }} href={gameData.igdbUrl}>
           Learn More
         </a>
       </section>

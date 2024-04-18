@@ -97,27 +97,36 @@ const Battle = () => {
             color: "white",
             textAlign: "center",
             padding: "0.5em",
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "0.5em",
           }}
         >
+          <a
+            style={{ color: "white" }}
+            target="_blank"
+            href={prevBattle.victor.igdbUrl}
+          >
+            {prevBattle.victor.name}
+          </a>
           <div>
-            <a
-              style={{ color: "white" }}
-              target="_blank"
-              href={prevBattle.victor.igdbUrl}
-            >
-              {prevBattle.victor.name}
-            </a>
-            {` ${Math.floor(prevBattle.victor.rankOld)} to ${Math.floor(prevBattle.victor.rankNew)}`}
+            {` ${Math.floor(prevBattle.victor.rankOld)} to `}
+            <span style={{ color: "#7f7" }}>
+              {Math.floor(prevBattle.victor.rankNew)}
+            </span>
           </div>
+          <a
+            style={{ color: "white" }}
+            target="_blank"
+            href={prevBattle.loser.igdbUrl}
+          >
+            {prevBattle.loser.name}
+          </a>
           <div>
-            <a
-              style={{ color: "white" }}
-              target="_blank"
-              href={prevBattle.loser.igdbUrl}
-            >
-              {prevBattle.loser.name}
-            </a>
-            {` ${Math.floor(prevBattle.loser.rankOld)} to ${Math.floor(prevBattle.loser.rankNew)}`}
+            {` ${Math.floor(prevBattle.loser.rankOld)} to `}
+            <span style={{ color: "#f77" }}>
+              {Math.floor(prevBattle.loser.rankNew)}
+            </span>
           </div>
         </div>
       )}
