@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import Game from "./Game";
 import GameDescription from "./GameDescription";
-import { BRAND_COLOR } from "../styles";
+import { useLoaderData } from "react-router-dom";
 
 export interface GameData {
   readonly id: number;
@@ -12,34 +12,25 @@ export interface GameData {
   readonly summary: string;
 }
 
+export const loaderBattlePage = async () => {
+  return await (await fetch("/app/battle/start", { method: "POST" })).json();
+};
+
 const Battle = () => {
-  const [battleData, setBattleData] = useState<Record<string, unknown> | null>(
-    null,
-  );
+  const { gameA, gameB, battleId } = useLoaderData() as {
+    battleId: number;
+    gameA: GameData;
+    gameB: GameData;
+  };
 
   const [uploading, setUploading] = useState(false);
 
-  const fetchBattle = useMemo(() => {
-    return async () => {
-      const response = await (
-        await fetch("/app/battle/start", { method: "POST" })
-      ).json();
-      setBattleData(response);
-    };
-  }, [setBattleData]);
+  const prevBattleStored = window.sessionStorage.getItem("prevBattle");
 
-  useEffect(() => {
-    if (battleData !== null) return;
-    fetchBattle();
-  }, [fetchBattle, battleData]);
-
-  const [prevBattle, setPrevBattle] = useState<{
-    victor: GameData & { rankOld: number; rankNew: number };
-    loser: GameData & { rankOld: number; rankNew: number };
-  } | null>(null);
+  const prevBattle =
+    prevBattleStored !== null ? JSON.parse(prevBattleStored) : null;
 
   const submitVictor = async (victor: GameData, loser: GameData) => {
-    if (battleData === null) return;
     setUploading(true);
     const response = await (
       await fetch("/app/battle/end", {
@@ -48,33 +39,15 @@ const Battle = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          battleId: battleData["battleId"],
+          battleId: battleId,
           victorId: victor.id,
           loserId: loser.id,
         }),
       })
     ).json();
-    setPrevBattle(response);
-    await fetchBattle();
-    setUploading(false);
+    window.sessionStorage.setItem("prevBattle", JSON.stringify(response));
+    window.location.reload();
   };
-
-  /*
-  Be aware that all hooks must be above this return line. The same number
-  of hooks must be called each render cycle. If a hook is below this line
-  the app will crash.
-  */
-  if (battleData === null)
-    return (
-      <div
-        style={{ textAlign: "center", background: BRAND_COLOR, color: "white" }}
-      >
-        fetching battle data...
-      </div>
-    );
-
-  const gameA = battleData["gameA"] as GameData;
-  const gameB = battleData["gameB"] as GameData;
 
   return (
     <div>
