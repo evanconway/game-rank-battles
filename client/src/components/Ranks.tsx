@@ -27,22 +27,33 @@ const Ranks = () => {
 
   const isPhone = useIsPhone();
 
+  const pageSelector = (
+    <div
+      style={{
+        display: "flex",
+        background: "black",
+        gap: "1em",
+        padding: "1em",
+      }}
+    >
+      <Link disabled={page <= 0} to="/ranks?p=0" name="First" />
+      <Link disabled={page <= 0} to={`/ranks?p=${page - 1}`} name="Prev" />
+      <Link
+        disabled={page >= totalNumPages - 1}
+        to={`/ranks?p=${page + 1}`}
+        name="Next"
+      />
+      <Link
+        disabled={page >= totalNumPages - 1}
+        to={`/ranks?p=${totalNumPages - 1}`}
+        name="Last"
+      />
+    </div>
+  );
+
   return (
     <div>
-      <div style={{ display: "flex", background: "black", gap: "1em" }}>
-        <Link disabled={page <= 0} to="/ranks?p=0" name="First" />
-        <Link disabled={page <= 0} to={`/ranks?p=${page - 1}`} name="Prev" />
-        <Link
-          disabled={page >= totalNumPages - 1}
-          to={`/ranks?p=${page + 1}`}
-          name="Next"
-        />
-        <Link
-          disabled={page >= totalNumPages - 1}
-          to={`/ranks?p=${totalNumPages - 1}`}
-          name="Last"
-        />
-      </div>
+      {pageSelector}
       <ul
         style={{
           listStyle: "none",
@@ -142,6 +153,7 @@ const Ranks = () => {
           ),
         )}
       </ul>
+      {pageSelector}
     </div>
   );
 };
