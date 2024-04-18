@@ -3,6 +3,7 @@ import {
   DatabaseGetGameEloById,
   DatabaseGetGameIds,
   DatabaseGetGameRanks,
+  DatabaseGetTotalNumOfRankPages,
   DatabaseUpdateGameElo,
 } from "database";
 import { Router } from "express";
@@ -19,6 +20,7 @@ const appRouter = (
   databaseUpdateGameElo: DatabaseUpdateGameElo,
   databaseGetGameRanks: DatabaseGetGameRanks,
   databaseGetGameEloById: DatabaseGetGameEloById,
+  databaseGetTotalNumOfRankPages: DatabaseGetTotalNumOfRankPages,
 ) => {
   const battles = new Map<string, Battle>();
 
@@ -89,8 +91,20 @@ const appRouter = (
   });
 
   router.get("/ranks", async (req, res) => {
-    console.log(req.query);
-    res.json(await databaseGetGameRanks(0));
+    try {
+      const page = Number.parseInt(req.query["p"] as string);
+      const ranks = await databaseGetGameRanks(page);
+      const totalNumPages = await databaseGetTotalNumOfRankPages();
+      res.json({
+        ranks,
+        page,
+        totalNumPages,
+      });
+    } catch (err) {
+      console.log(err);
+      res.json(await databaseGetGameRanks(0));
+    }
+    return;
   });
 
   router.use("*", (req, res) => {

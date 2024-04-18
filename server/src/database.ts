@@ -26,6 +26,9 @@ interface GameWithRank {
 }
 export type DatabaseGetGameRanks = (page: number) => Promise<GameWithRank[]>;
 export type DatabaseGetGameEloById = (gameId: number) => Promise<number>;
+export type DatabaseGetTotalNumOfRankPages = () => Promise<number>;
+
+const RANK_GAMES_PER_PAGE = 10;
 
 // function definitions
 const getDatabaseFunctions = async () => {
@@ -120,19 +123,19 @@ const getDatabaseFunctions = async () => {
   };
 
   const databaseGetGameRanks: DatabaseGetGameRanks = async (page: number) => {
-    const gamesPerPage = 20;
     const rows = await db.all(
       "SELECT * FROM game JOIN elo ON game.id = elo.game ORDER BY rank DESC LIMIT $offset, $limit;",
-      { $offset: page * gamesPerPage, $limit: gamesPerPage },
+      { $offset: page * RANK_GAMES_PER_PAGE, $limit: RANK_GAMES_PER_PAGE },
     );
     return rows.map(
-      (row) =>
+      (row, i) =>
         ({
           name: row["name"],
           igdbUrl: row["igdb_url"],
           coverUrl: row["cover_url"],
           summary: row["summary"],
-          rank: row["rank"],
+          rank: row["rank"], //TODO: rename this to "rating"
+          position: i + 1 + page * RANK_GAMES_PER_PAGE,
         }) as GameWithRank,
     );
   };
@@ -146,6 +149,13 @@ const getDatabaseFunctions = async () => {
     return row["rank"];
   };
 
+  const databaseGetTotalNumOfRankPages: DatabaseGetTotalNumOfRankPages =
+    async () => {
+      const row = await db.get("SELECT COUNT(id) as count FROM game;");
+      const count = row["count"] as number;
+      return Math.ceil(count / RANK_GAMES_PER_PAGE);
+    };
+
   return {
     databaseAddPlatform,
     databaseAddGame,
@@ -154,6 +164,7 @@ const getDatabaseFunctions = async () => {
     databaseUpdateGameElo,
     databaseGetGameRanks,
     databaseGetGameEloById,
+    databaseGetTotalNumOfRankPages,
   };
 };
 
