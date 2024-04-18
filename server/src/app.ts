@@ -89,6 +89,7 @@ const appRouter = (
   });
 
   router.get("/ranks", async (req, res) => {
+    console.log(req.query);
     res.json(await databaseGetGameRanks(0));
   });
 

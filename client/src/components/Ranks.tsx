@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { BRAND_COLOR } from "../styles";
 import { useIsPhone } from "../util";
 
@@ -13,9 +14,20 @@ interface Rank {
 const Ranks = () => {
   const [ranks, setRanks] = useState<Rank[]>([]);
 
+  const [searchParams, _] = useSearchParams();
+
+  console.log(Object.fromEntries(searchParams.entries()));
+
   useEffect(() => {
     const g = async () => {
-      setRanks((await (await fetch("/app/ranks")).json()) as Rank[]);
+      setRanks(
+        (await (
+          await fetch(
+            "/app/ranks?" +
+              new URLSearchParams(Object.fromEntries(searchParams.entries())),
+          )
+        ).json()) as Rank[],
+      );
     };
     g();
   }, [setRanks]);

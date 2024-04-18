@@ -20,7 +20,7 @@ const App = () => {
         </h1>
         <div style={{ display: "flex", gap: "1em", padding: "1em" }}>
           <Link to="/" name="Home" />
-          <Link to="/ranks" name="Rankings" />
+          <Link to="/ranks?p=0" name="Rankings" />
           <Link to="/about" name="About" />
         </div>
       </div>
