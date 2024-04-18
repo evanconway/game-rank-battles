@@ -1,14 +1,7 @@
 import { BRAND_COLOR } from "../styles";
+import { GameData } from "./Battle.tsx";
 
-const GameDescription = ({
-  title,
-  summary,
-  aboutLink,
-}: {
-  title: string;
-  summary: string;
-  aboutLink: string;
-}) => {
+const GameDescription = ({ gameData }: { gameData: GameData }) => {
   return (
     <div
       style={{
@@ -18,10 +11,10 @@ const GameDescription = ({
         padding: "1em",
       }}
     >
-      <h2>{title}</h2>
+      <h2>{gameData.name}</h2>
       <section style={{ fontSize: "1.25em" }}>
-        <p>{summary}</p>
-        <a style={{ color: "white" }} href={aboutLink}>
+        <p>{gameData.summary}</p>
+        <a style={{ color: "white" }} href={gameData.igdbUrl}>
           Learn More
         </a>
       </section>

@@ -3,7 +3,7 @@ import Game from "./Game";
 import GameDescription from "./GameDescription";
 import { BRAND_COLOR } from "../styles";
 
-interface GameData {
+export interface GameData {
   readonly id: number;
   readonly coverUrl: string;
   readonly igdbUrl: string;
@@ -140,16 +140,8 @@ const Battle = () => {
         VS
       </div>
       <div style={{ display: "flex" }}>
-        <GameDescription
-          title={gameA.name}
-          summary={gameA.summary}
-          aboutLink={gameA.igdbUrl}
-        />
-        <GameDescription
-          title={gameB.name}
-          summary={gameB.summary}
-          aboutLink={gameB.igdbUrl}
-        />
+        <GameDescription gameData={gameA} />
+        <GameDescription gameData={gameB} />
       </div>
     </div>
   );
