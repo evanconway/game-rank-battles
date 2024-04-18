@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import Link from "./Link.tsx";
 import { BRAND_COLOR } from "../styles";
 import { useIsPhone } from "../util";
@@ -13,52 +12,34 @@ interface Rank {
   position: number;
 }
 
+export const loaderRankPage = async ({ request }: { request: Request }) => {
+  const url = new URL(request.url);
+  const page = url.searchParams.get("p");
+  return await (await fetch(`/app/ranks?p=${page}`)).json();
+};
+
 const Ranks = () => {
-  const [rankData, setRankData] = useState<{
+  const { page, ranks, totalNumPages } = useLoaderData() as {
     page: number;
     ranks: Rank[];
     totalNumPages: number;
-  } | null>(null);
-
-  const [searchParams, _] = useSearchParams();
-
-  console.log(Object.fromEntries(searchParams.entries()));
-
-  useEffect(() => {
-    const g = async () => {
-      const response = await (
-        await fetch(
-          "/app/ranks?" +
-            new URLSearchParams(Object.fromEntries(searchParams.entries())),
-        )
-      ).json();
-      console.log(response);
-      setRankData(response);
-    };
-    g();
-  }, [setRankData]);
+  };
 
   const isPhone = useIsPhone();
-
-  if (rankData === null) return <div></div>;
 
   return (
     <div>
       <div style={{ display: "flex", background: "black", gap: "1em" }}>
-        <Link disabled={rankData.page <= 0} to="/ranks?p=0" name="First" />
+        <Link disabled={page <= 0} to="/ranks?p=0" name="First" />
+        <Link disabled={page <= 0} to={`/ranks?p=${page - 1}`} name="Prev" />
         <Link
-          disabled={rankData.page <= 0}
-          to={`/ranks?p=${rankData.page - 1}`}
-          name="Prev"
-        />
-        <Link
-          disabled={rankData.page >= rankData.totalNumPages - 1}
-          to={`/ranks?p=${rankData.page + 1}`}
+          disabled={page >= totalNumPages - 1}
+          to={`/ranks?p=${page + 1}`}
           name="Next"
         />
         <Link
-          disabled={rankData.page >= rankData.totalNumPages - 1}
-          to={`/ranks?p=${rankData.totalNumPages - 1}`}
+          disabled={page >= totalNumPages - 1}
+          to={`/ranks?p=${totalNumPages - 1}`}
           name="Last"
         />
       </div>
@@ -70,7 +51,7 @@ const Ranks = () => {
           padding: 0,
         }}
       >
-        {rankData.ranks.map((rank, i) =>
+        {ranks.map((rank, i) =>
           isPhone ? (
             <li
               key={i}

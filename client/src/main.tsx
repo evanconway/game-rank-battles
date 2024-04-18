@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App.tsx";
 import Battle from "./components/Battle.tsx.tsx";
-import Ranks from "./components/Ranks.tsx";
+import Ranks, { loaderRankPage } from "./components/Ranks.tsx";
 import About from "./components/About.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -21,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             {
               path: "/ranks",
               element: <Ranks />,
+              loader: loaderRankPage,
             },
             {
               path: "/about",
