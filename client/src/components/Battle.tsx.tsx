@@ -2,6 +2,15 @@ import { useEffect, useMemo, useState } from "react";
 import Game from "./Game";
 import GameDescription from "./GameDescription";
 
+interface GameData {
+  readonly id: number;
+  readonly coverUrl: string;
+  readonly igdbUrl: string;
+  readonly name: string;
+  readonly releaseDate: number;
+  readonly summary: string;
+}
+
 const Battle = () => {
   const [battleData, setBattleData] = useState<Record<string, unknown> | null>(
     null,
@@ -26,29 +35,10 @@ const Battle = () => {
   if (battleData === null)
     return <div style={{ textAlign: "center" }}>fetching battle data...</div>;
 
-  const gameA = battleData["gameA"] as Record<string, unknown>;
-  const gameB = battleData["gameB"] as Record<string, unknown>;
+  const gameA = battleData["gameA"] as GameData;
+  const gameB = battleData["gameB"] as GameData;
 
-  const gameAId = gameA["id"] as number;
-  const gameBId = gameB["id"] as number;
-
-  const gameDataA = {
-    name: gameA["name"] as string,
-    coverUrl: gameA["coverUrl"] as string,
-    igdbUrl: gameA["igdbUrl"] as string,
-    releaseDate: gameA["releaseDate"] as number,
-    summary: gameA["summary"] as string,
-  };
-
-  const gameDataB = {
-    name: gameB["name"] as string,
-    coverUrl: gameB["coverUrl"] as string,
-    igdbUrl: gameB["igdbUrl"] as string,
-    releaseDate: gameB["releaseDate"] as number,
-    summary: gameB["summary"] as string,
-  };
-
-  const submitVictor = async (victorId: number, loserId: number) => {
+  const submitVictor = async (victor: GameData, loser: GameData) => {
     setUploading(true);
     await fetch("/app/battle/end", {
       method: "POST",
@@ -57,8 +47,8 @@ const Battle = () => {
       },
       body: JSON.stringify({
         battleId: battleData["battleId"],
-        victorId,
-        loserId,
+        victorId: victor.id,
+        loserId: loser.id,
       }),
     });
     await fetchBattle();
@@ -69,13 +59,13 @@ const Battle = () => {
     <div>
       <div style={{ display: "flex" }}>
         <Game
-          coverUrl={gameDataA.coverUrl}
-          onClick={() => submitVictor(gameAId, gameBId)}
+          coverUrl={gameA.coverUrl}
+          onClick={() => submitVictor(gameA, gameB)}
           disabled={uploading}
         />
         <Game
-          coverUrl={gameDataB.coverUrl}
-          onClick={() => submitVictor(gameBId, gameAId)}
+          coverUrl={gameB.coverUrl}
+          onClick={() => submitVictor(gameB, gameA)}
           disabled={uploading}
         />
       </div>
@@ -92,14 +82,14 @@ const Battle = () => {
       </div>
       <div style={{ display: "flex" }}>
         <GameDescription
-          title={gameDataA.name}
-          summary={gameDataA.summary}
-          aboutLink={gameDataA.igdbUrl}
+          title={gameA.name}
+          summary={gameA.summary}
+          aboutLink={gameA.igdbUrl}
         />
         <GameDescription
-          title={gameDataB.name}
-          summary={gameDataB.summary}
-          aboutLink={gameDataB.igdbUrl}
+          title={gameB.name}
+          summary={gameB.summary}
+          aboutLink={gameB.igdbUrl}
         />
       </div>
     </div>

@@ -40,7 +40,7 @@ const Ranks = () => {
               textAlign: "center",
               fontSize: "1.25em",
               display: "flex",
-              flexDirection: isPhone ? "column" : "row",
+              flexDirection: "column",
             }}
           >
             <div
@@ -56,25 +56,14 @@ const Ranks = () => {
                 useGrouping: false,
               })}
             </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: isPhone ? "column" : "row",
-              }}
-            >
-              <img src={rank.coverUrl} />
-              <div style={{ padding: "0.5em" }}>
-                <div>{rank.name}</div>
-                <p>{rank.summary}</p>
-                <div>{Math.floor(rank.rank)}</div>
-                <a
-                  target="_blank"
-                  style={{ color: "white" }}
-                  href={rank.igdbUrl}
-                >
-                  Learn More
-                </a>
-              </div>
+            <img src={rank.coverUrl} />
+            <div style={{ padding: "0.5em" }}>
+              <div>{rank.name}</div>
+              <div>{Math.floor(rank.rank)}</div>
+              <p>{rank.summary}</p>
+              <a target="_blank" style={{ color: "white" }} href={rank.igdbUrl}>
+                Learn More
+              </a>
             </div>
           </li>
         ) : (
@@ -111,7 +100,7 @@ const Ranks = () => {
                 <h2 style={{ marginTop: 0, paddingTop: "0.5em" }}>
                   {rank.name}
                 </h2>
-                <div>{Math.floor(rank.rank)} points</div>
+                <div>{Math.floor(rank.rank)}</div>
                 <p>
                   {rank.summary}{" "}
                   <a
