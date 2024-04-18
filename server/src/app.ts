@@ -1,5 +1,6 @@
 import {
   DatabaseGetGameById,
+  DatabaseGetGameEloById,
   DatabaseGetGameIds,
   DatabaseGetGameRanks,
   DatabaseUpdateGameElo,
@@ -17,6 +18,7 @@ const appRouter = (
   databaseGetGameById: DatabaseGetGameById,
   databaseUpdateGameElo: DatabaseUpdateGameElo,
   databaseGetGameRanks: DatabaseGetGameRanks,
+  databaseGetGameEloById: DatabaseGetGameEloById,
 ) => {
   const battles = new Map<string, Battle>();
 
@@ -68,9 +70,21 @@ const appRouter = (
       return;
     }
 
+    // TODO: Perhaps go back later and see if there's a way to do this with less database queries
+    const victorOldRank = await databaseGetGameEloById(victorId);
+    const loserOldRank = await databaseGetGameEloById(loserId);
+    const victor = await databaseGetGameById(victorId);
+    const loser = await databaseGetGameById(loserId);
+
     await databaseUpdateGameElo(victorId, loserId);
 
-    res.status(200).json({ victorId });
+    const victorNewRank = await databaseGetGameEloById(victorId);
+    const loserNewRank = await databaseGetGameEloById(loserId);
+
+    res.status(200).json({
+      victor: { ...victor, rankOld: victorOldRank, rankNew: victorNewRank },
+      loser: { ...loser, rankOld: loserOldRank, rankNew: loserNewRank },
+    });
     return;
   });
 

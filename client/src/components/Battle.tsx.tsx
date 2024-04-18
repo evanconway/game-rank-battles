@@ -34,25 +34,27 @@ const Battle = () => {
   }, [fetchBattle, battleData]);
 
   const [prevBattle, setPrevBattle] = useState<{
-    victor: GameData;
-    loser: GameData;
+    victor: GameData & { rankOld: number; rankNew: number };
+    loser: GameData & { rankOld: number; rankNew: number };
   } | null>(null);
 
   const submitVictor = async (victor: GameData, loser: GameData) => {
     if (battleData === null) return;
     setUploading(true);
-    await fetch("/app/battle/end", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        battleId: battleData["battleId"],
-        victorId: victor.id,
-        loserId: loser.id,
-      }),
-    });
-    setPrevBattle({ victor, loser });
+    const response = await (
+      await fetch("/app/battle/end", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          battleId: battleData["battleId"],
+          victorId: victor.id,
+          loserId: loser.id,
+        }),
+      })
+    ).json();
+    setPrevBattle(response);
     await fetchBattle();
     setUploading(false);
   };
@@ -97,23 +99,26 @@ const Battle = () => {
             padding: "0.5em",
           }}
         >
-          You chose{" "}
-          <a
-            style={{ color: "white" }}
-            target="_blank"
-            href={prevBattle.victor.igdbUrl}
-          >
-            {prevBattle.victor.name}
-          </a>{" "}
-          over{" "}
-          <a
-            style={{ color: "white" }}
-            target="_blank"
-            href={prevBattle.loser.igdbUrl}
-          >
-            {prevBattle.loser.name}
-          </a>
-          .
+          <div>
+            <a
+              style={{ color: "white" }}
+              target="_blank"
+              href={prevBattle.victor.igdbUrl}
+            >
+              {prevBattle.victor.name}
+            </a>
+            {` ${Math.floor(prevBattle.victor.rankOld)} to ${Math.floor(prevBattle.victor.rankNew)}`}
+          </div>
+          <div>
+            <a
+              style={{ color: "white" }}
+              target="_blank"
+              href={prevBattle.loser.igdbUrl}
+            >
+              {prevBattle.loser.name}
+            </a>
+            {` ${Math.floor(prevBattle.loser.rankOld)} to ${Math.floor(prevBattle.loser.rankNew)}`}
+          </div>
         </div>
       )}
       <div style={{ display: "flex" }}>

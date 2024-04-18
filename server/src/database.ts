@@ -25,6 +25,7 @@ interface GameWithRank {
   coverUrl: string;
 }
 export type DatabaseGetGameRanks = (page: number) => Promise<GameWithRank[]>;
+export type DatabaseGetGameEloById = (gameId: number) => Promise<number>;
 
 // function definitions
 const getDatabaseFunctions = async () => {
@@ -136,6 +137,15 @@ const getDatabaseFunctions = async () => {
     );
   };
 
+  const databaseGetGameEloById: DatabaseGetGameEloById = async (
+    gameId: number,
+  ) => {
+    const row = await db.get("SELECT rank FROM elo WHERE game = $id;", {
+      $id: gameId,
+    });
+    return row["rank"];
+  };
+
   return {
     databaseAddPlatform,
     databaseAddGame,
@@ -143,6 +153,7 @@ const getDatabaseFunctions = async () => {
     databaseGetGameById,
     databaseUpdateGameElo,
     databaseGetGameRanks,
+    databaseGetGameEloById,
   };
 };
 

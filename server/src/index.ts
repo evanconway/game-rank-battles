@@ -20,6 +20,7 @@ const startServer = async () => {
     databaseGetGameById,
     databaseUpdateGameElo,
     databaseGetGameRanks,
+    databaseGetGameEloById,
   } = await getDatabaseFunctions();
 
   // setup platforms
@@ -70,6 +71,7 @@ const startServer = async () => {
       databaseGetGameById,
       databaseUpdateGameElo,
       databaseGetGameRanks,
+      databaseGetGameEloById,
     ),
   );
 
