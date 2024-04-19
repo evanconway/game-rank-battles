@@ -83,7 +83,8 @@ const startServer = async () => {
     res.sendFile(path.join(__dirname, staticFilesRelativeDir, "index.html"));
   });
 
-  const port = 3000;
+  const port = process.env["PORT"];
+  if (port === undefined) throw new Error("PORT is not defined in .env");
   app.listen(port, () => {
     console.log(`app running at http://localhost:${port}`);
   });
