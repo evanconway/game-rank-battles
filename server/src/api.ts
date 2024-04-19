@@ -71,7 +71,7 @@ const getAPIFunctions = async () => {
       // TODO: modify so we exclude certain games like ones only released in bundles, or re-releases
       return await apiFetch(
         "games",
-        `fields *; where platforms = [${platformId}] & keywords != (${EXCLUDED_KEYWORDS.join(",")}); limit ${GAMES_PER_PLATFORM}; sort rating desc;`,
+        `fields *; where platforms = (${platformId}) & keywords != (${EXCLUDED_KEYWORDS.join(",")}) & cover != null & name != null & first_release_date != null; limit ${GAMES_PER_PLATFORM}; sort total_rating desc;`,
       );
     },
     getGameCoverArtUrls: async (gameIds: number[]) => {
