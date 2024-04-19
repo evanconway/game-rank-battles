@@ -6,7 +6,39 @@ import appRouter from "./app";
 
 // hand picked game platforms the website will support
 // platforms are ids from IGDB
-const platforms = [19];
+const platforms = [
+  4, // N64
+  5, // WII
+  6, // PC
+  7, // PLAYSTATION
+  8, // PLAYSTATION 2
+  9, // PLAYSTATION 3
+  11, // XBOX
+  12, // XBOX 360
+  13, // DOS
+  18, // NES
+  19, // SNES
+  20, // NINTENDO DS
+  21, // GAMECUBE
+  22, // GAME BOY COLOR
+  23, // DREAMCAST
+  24, // GAME BOY ADVANCE
+  29, // SEGA GENESIS
+  30, // SEGA 32X
+  32, // SEGA SATURN
+  33, // GAME BOY
+  35, // SEGA GAME GEAR
+  37, // NINTENDO 3DS
+  38, // PLAYSTATION PORTABLE (PSP)
+  41, // WII U
+  46, // PLAYSTATION VITA
+  48, // PLAYSTATION 4
+  49, // XBOX ONE
+  52, // ARCADE
+  130, // NINTENDO SWITCH
+  167, // PLAYSTATION 5
+  169, // XBOX SERIES X|S
+];
 
 const staticFilesRelativeDir = "../../client/dist";
 
