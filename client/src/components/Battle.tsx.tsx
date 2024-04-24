@@ -49,8 +49,7 @@ const Battle = () => {
       })
     ).json();
     window.sessionStorage.setItem("prevBattle", JSON.stringify(response));
-    const newBattleData = await loaderBattlePage();
-    setBattleData(newBattleData);
+    setBattleData(await loaderBattlePage());
     setUploading(false);
   };
 
@@ -153,18 +152,28 @@ const Battle = () => {
       </div>
       <div
         style={{
-          color: "white",
           background: "black",
-          fontSize: "1.3em",
           textAlign: "center",
-          padding: "0.5em",
         }}
       >
-        {"("}
-        <a href="/" style={{ color: "white" }}>
+        <button
+          disabled={uploading}
+          onClick={async () => {
+            setUploading(true);
+            setBattleData(await loaderBattlePage());
+            setUploading(false);
+          }}
+          style={{
+            padding: "0.5em",
+            cursor: "pointer",
+            color: "white",
+            background: "black",
+            border: "none",
+            fontSize: "1.3em",
+          }}
+        >
           skip battle
-        </a>
-        {")"}
+        </button>
       </div>
       <div style={{ display: "flex" }}>
         <GameDescription gameData={gameA} />
