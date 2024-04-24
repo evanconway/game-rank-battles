@@ -11,7 +11,6 @@ const GameDescription = ({ gameData }: { gameData: GameData }) => {
         padding: "1em",
       }}
     >
-      <h2 style={{ textAlign: "center" }}>{gameData.name}</h2>
       <section style={{ fontSize: "1.25em" }}>
         <p>{gameData.summary}</p>
         <a target="_blank" style={{ color: "white" }} href={gameData.igdbUrl}>

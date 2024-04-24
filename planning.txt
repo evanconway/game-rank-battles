@@ -5,3 +5,7 @@ Surprised I never started a planning file for this one. Been reading up on desig
 What I'd like is for the battle information to display over the game images after the user has chosen, and clicking/touching again advances to the next battle. That gives clear immediate feedback without changing the layout. For now let's stick the previous battle element below the game descriptions just so it at least exists somewhere. But we'll move forward with learning the CSS to overlay elements on top of eachother.
 
 Oh, and we should also rework data loading on the main page so that it doesn't cause a refresh when fetching a new battle. That way if users prefer a specific position when selecting games, it is not reset after each battle.
+
+We also need an obvious way to skip battles. I wonder if we should replace the VS at the bottom of the images with a subtle skip link? I'm not even sure the VS is necessary. It's purely decorative.
+
+Actually, we should see if we can learn the CSS for positioning the titles above the images, centered, but still retain a VS in the exact middle between them. Then we could put a subtle (skip) centered below the images. Let's explore this and see what we get.

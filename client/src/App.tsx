@@ -10,12 +10,11 @@ const App = () => {
 
   return (
     <div style={{ background: "white", maxWidth: "900px", margin: "0 auto" }}>
-      <div style={{ background: "black" }}>
+      <div style={{ background: "black", padding: "2em 0 6em 0" }}>
         <h1
           style={{
             fontSize: "3em",
             textAlign: "center",
-            padding: "0.5em",
             paddingBottom: "0",
             color: "white",
             marginBottom: 0,
@@ -31,7 +30,6 @@ const App = () => {
             gap: "1em",
             padding: "1em",
             paddingTop: "0.2em",
-            paddingBottom: "5em",
             justifyContent: "center",
           }}
         >

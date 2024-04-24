@@ -105,6 +105,12 @@ const Battle = () => {
       </div>
     );
 
+  const gameHeaderStyle: React.CSSProperties = {
+    fontSize: "1em",
+    margin: "0 0",
+    padding: "0.5em",
+  };
+
   return (
     <div>
       <div
@@ -112,11 +118,26 @@ const Battle = () => {
           background: "black",
           color: "white",
           textAlign: "center",
-          padding: "0.5em",
           fontSize: "1.5em",
         }}
       >
         choose your favorite
+      </div>
+      <div
+        style={{
+          background: "black",
+          color: "white",
+          textAlign: "center",
+          fontSize: "1.5em",
+          display: "grid",
+          gridTemplateColumns: "1fr 2ch 1fr",
+          alignItems: "center",
+          gap: "0.4em",
+        }}
+      >
+        <h2 style={gameHeaderStyle}>{gameA.name}</h2>
+        <div>vs</div>
+        <h2 style={gameHeaderStyle}>{gameB.name}</h2>
       </div>
       <div style={{ display: "flex" }}>
         <Game
@@ -132,14 +153,18 @@ const Battle = () => {
       </div>
       <div
         style={{
-          margin: 0,
-          background: "black",
           color: "white",
+          background: "black",
+          fontSize: "1.3em",
           textAlign: "center",
-          fontSize: "2em",
+          padding: "0.5em",
         }}
       >
-        VS
+        {"("}
+        <a href="/" style={{ color: "white" }}>
+          skip battle
+        </a>
+        {")"}
       </div>
       <div style={{ display: "flex" }}>
         <GameDescription gameData={gameA} />
