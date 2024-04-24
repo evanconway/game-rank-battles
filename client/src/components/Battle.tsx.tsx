@@ -49,29 +49,24 @@ const Battle = () => {
     window.location.reload();
   };
 
-  return (
-    <div>
-      {prevBattle === null ? (
+  const previousBattleElement =
+    prevBattle === null ? null : (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          background: "black",
+          color: "white",
+          textAlign: "center",
+          alignItems: "center",
+        }}
+      >
+        <div style={{ fontSize: "1.5em" }}>Previous Battle</div>
         <div
           style={{
-            background: "black",
-            color: "white",
-            textAlign: "center",
-            padding: "0.5em",
-            fontSize: "1.5em",
-          }}
-        >
-          choose your favorite
-        </div>
-      ) : (
-        <div
-          style={{
-            background: "black",
-            color: "white",
-            textAlign: "center",
             padding: "0.5em",
             display: "grid",
-            gridTemplateColumns: "1fr 1fr",
+            gridTemplateColumns: "fit-content(50%) fit-content(50%)",
             gap: "0.5em",
           }}
         >
@@ -102,7 +97,22 @@ const Battle = () => {
             </span>
           </div>
         </div>
-      )}
+      </div>
+    );
+
+  return (
+    <div>
+      <div
+        style={{
+          background: "black",
+          color: "white",
+          textAlign: "center",
+          padding: "0.5em",
+          fontSize: "1.5em",
+        }}
+      >
+        choose your favorite
+      </div>
       <div style={{ display: "flex" }}>
         <Game
           coverUrl={gameA.coverUrl}
@@ -130,6 +140,7 @@ const Battle = () => {
         <GameDescription gameData={gameA} />
         <GameDescription gameData={gameB} />
       </div>
+      {previousBattleElement}
     </div>
   );
 };

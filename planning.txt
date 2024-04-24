@@ -1,0 +1,7 @@
+24th of April, 2024
+
+Surprised I never started a planning file for this one. Been reading up on design and layout. I'm not sure there's a good place to put previous battle information. We want the game descriptions below the game image display, and we don't want to move things around after a battle so putting it above pretty much anything doesn't work. So honestly the best place seems like below the game descriptions. But that's so far out of the way the user will never see it.
+
+What I'd like is for the battle information to display over the game images after the user has chosen, and clicking/touching again advances to the next battle. That gives clear immediate feedback without changing the layout. For now let's stick the previous battle element below the game descriptions just so it at least exists somewhere. But we'll move forward with learning the CSS to overlay elements on top of eachother.
+
+Oh, and we should also rework data loading on the main page so that it doesn't cause a refresh when fetching a new battle. That way if users prefer a specific position when selecting games, it is not reset after each battle.
