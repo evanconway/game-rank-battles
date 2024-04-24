@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Game from "./Game";
-import GameDescription from "./GameDescription";
 import { useLoaderData } from "react-router-dom";
+import GameDescriptions from "./GameDescriptions";
 
 export interface GameData {
   readonly id: number;
@@ -175,10 +175,7 @@ const Battle = () => {
           skip battle
         </button>
       </div>
-      <div style={{ display: "flex" }}>
-        <GameDescription gameData={gameA} />
-        <GameDescription gameData={gameB} />
-      </div>
+      <GameDescriptions gameA={gameA} gameB={gameB} />
       {previousBattleElement}
     </div>
   );
