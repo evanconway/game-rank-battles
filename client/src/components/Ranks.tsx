@@ -35,6 +35,7 @@ const Ranks = () => {
         background: "black",
         gap: "1em",
         padding: "1em",
+        justifyContent: "center",
       }}
     >
       <Link disabled={page <= 0} to="/ranks?p=0" name="First" />

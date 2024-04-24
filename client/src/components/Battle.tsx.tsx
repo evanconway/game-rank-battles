@@ -17,11 +17,14 @@ export const loaderBattlePage = async () => {
 };
 
 const Battle = () => {
-  const { gameA, gameB, battleId } = useLoaderData() as {
+  const loadedBattleData = useLoaderData() as {
     battleId: number;
     gameA: GameData;
     gameB: GameData;
   };
+
+  const [{ gameA, gameB, battleId }, setBattleData] =
+    useState(loadedBattleData);
 
   const [uploading, setUploading] = useState(false);
 
@@ -46,7 +49,9 @@ const Battle = () => {
       })
     ).json();
     window.sessionStorage.setItem("prevBattle", JSON.stringify(response));
-    window.location.reload();
+    const newBattleData = await loaderBattlePage();
+    setBattleData(newBattleData);
+    setUploading(false);
   };
 
   const previousBattleElement =
