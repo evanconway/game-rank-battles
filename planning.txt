@@ -9,3 +9,9 @@ Oh, and we should also rework data loading on the main page so that it doesn't c
 We also need an obvious way to skip battles. I wonder if we should replace the VS at the bottom of the images with a subtle skip link? I'm not even sure the VS is necessary. It's purely decorative.
 
 Actually, we should see if we can learn the CSS for positioning the titles above the images, centered, but still retain a VS in the exact middle between them. Then we could put a subtle (skip) centered below the images. Let's explore this and see what we get.
+
+That worked well. Next let's revisit the game data. There are too many obscure titles included. Let's try hand-picking the number of games included for each platform. Also let's see what the results look like when we use user ratings instead. I wonder if this will give us more of a chance of getting games that are well known. Also let's remove the more obscure platforms (should we include the saturn and dreamcast?).
+
+Oh wait, we can also search by number of user ratings. I bet in addition to requiring a high score, we could require games to have at least a certain number of ratings. This should ensure only well known games are included.
+
+Wow, after looking at the data from this change, this is obviously so much better. I think I still need to think about what the user rating count threshold should be. This also makes me realize that now we can just query by all platforms instead of a handpicked set.

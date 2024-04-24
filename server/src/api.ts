@@ -13,7 +13,7 @@ export interface Game {
 }
 
 const IGDB_LIMIT = 500;
-const GAMES_PER_PLATFORM = 100;
+const MINIMUM_USER_RATING_COUNT = 25;
 
 // we want to exclude certain games like bundles, fan hacks, and re-releases
 const EXCLUDED_KEYWORDS = [32374, 2453, 27216, 2004];
@@ -71,7 +71,7 @@ const getAPIFunctions = async () => {
       // TODO: modify so we exclude certain games like ones only released in bundles, or re-releases
       return await apiFetch(
         "games",
-        `fields *; where platforms = (${platformId}) & keywords != (${EXCLUDED_KEYWORDS.join(",")}) & cover != null & name != null & first_release_date != null; limit ${GAMES_PER_PLATFORM}; sort total_rating desc;`,
+        `fields *; where platforms = (${platformId}) & keywords != (${EXCLUDED_KEYWORDS.join(",")}) & cover != null & name != null & first_release_date != null & rating_count > ${MINIMUM_USER_RATING_COUNT}; limit ${IGDB_LIMIT}; sort rating desc;`,
       );
     },
     getGameCoverArtUrls: async (gameIds: number[]) => {

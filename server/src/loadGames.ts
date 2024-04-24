@@ -40,7 +40,8 @@ const platforms = [
 const loadGames = async () => {
   const { getPlatforms, getGamesByPlatform, getGameCoverArtUrls } =
     await getAPIFunctions();
-  const { databaseAddPlatform, databaseAddGame } = await getDatabaseFunctions();
+  const { databaseAddPlatform, databaseAddGame, databaseDeleteAllGames } =
+    await getDatabaseFunctions();
 
   // setup platforms
   const igdbPlatforms = await getPlatforms();
@@ -50,6 +51,7 @@ const loadGames = async () => {
 
   // setup games
   console.log("setting up games, this could take a while...");
+  await databaseDeleteAllGames();
   for (const platformId of platforms) {
     const games = await getGamesByPlatform(platformId);
     const coverArts = await getGameCoverArtUrls(games.map((g) => g["id"]));

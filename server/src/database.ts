@@ -10,6 +10,7 @@ export type DatabaseAddPlatform = (
   name: string,
   abbreviation: string,
 ) => Promise<void>;
+export type DatabaseDeleteAllGames = () => Promise<void>;
 export type DatabaseAddGame = (game: Game) => Promise<void>;
 export type DatabaseGetGameIds = () => Promise<number[]>;
 export type DatabaseGetGameById = (gameId: number) => Promise<Game>;
@@ -52,6 +53,15 @@ const getDatabaseFunctions = async () => {
         $abbrev: abbreviation,
       },
     );
+  };
+
+  /**
+   * BEWARE! This does exactly what you think it does. Removes all games from the
+   * database. It only removes the game entries and not their Elo ratings. Intended
+   * to be used when loading a new batch of games.
+   */
+  const databaseDeleteAllGames: DatabaseDeleteAllGames = async () => {
+    await db.run("DELETE FROM game");
   };
 
   const databaseAddGame: DatabaseAddGame = async (game: Game) => {
@@ -158,6 +168,7 @@ const getDatabaseFunctions = async () => {
 
   return {
     databaseAddPlatform,
+    databaseDeleteAllGames,
     databaseAddGame,
     databaseGetGameIds,
     databaseGetGameById,
