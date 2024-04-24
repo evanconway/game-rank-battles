@@ -30,6 +30,7 @@ const Ranks = () => {
   const pageSelector = (
     <div
       style={{
+        fontSize: "0.65em",
         display: "flex",
         background: "black",
         gap: "1em",
