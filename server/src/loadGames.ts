@@ -51,7 +51,6 @@ const loadGames = async () => {
 
   // setup games
   console.log("setting up games, this could take a while...");
-  await databaseDeleteAllGames();
   for (const platformId of platforms) {
     const games = await getGamesByPlatform(platformId);
     const coverArts = await getGameCoverArtUrls(games.map((g) => g["id"]));
