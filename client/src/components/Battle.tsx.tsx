@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Game from "./Game";
 import { useLoaderData } from "react-router-dom";
 import GameDescriptions from "./GameDescriptions";
@@ -53,54 +53,69 @@ const Battle = () => {
     setUploading(false);
   };
 
+  const vsBorderStyle: React.CSSProperties = {
+    border: "white solid 0em",
+    borderTopWidth: "2px",
+    borderBottomWidth: "2px",
+  };
+
   const previousBattleElement =
     prevBattle === null ? null : (
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
           background: "black",
           color: "white",
           textAlign: "center",
-          alignItems: "center",
-          padding: "1em",
+          fontSize: "1.25em",
+          paddingTop: "0.5em",
+          paddingBottom: "0.5em",
         }}
       >
-        <div>Previous Battle</div>
+        <div style={{ paddingBottom: "0.5em" }}>Previous Battle</div>
         <div
           style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
             padding: "0.5em",
-            display: "grid",
-            gridTemplateColumns: "fit-content(50%) fit-content(50%)",
-            gap: "0.5em",
+            ...vsBorderStyle,
           }}
         >
-          <a
-            style={{ color: "white" }}
-            target="_blank"
-            href={prevBattle.victor.igdbUrl}
+          <div
+            style={{
+              padding: "0.5em",
+              display: "grid",
+              gridTemplateColumns: "fit-content(50%) fit-content(50%)",
+              gap: "0.5em",
+            }}
           >
-            {prevBattle.victor.name}
-          </a>
-          <div>
-            {` ${Math.floor(prevBattle.victor.rankOld)} to `}
-            <span style={{ color: "#7f7" }}>
-              {Math.floor(prevBattle.victor.rankNew)}
-            </span>
-          </div>
-          <a
-            style={{ color: "white" }}
-            target="_blank"
-            href={prevBattle.loser.igdbUrl}
-          >
-            {prevBattle.loser.name}
-          </a>
-          <div>
-            {` ${Math.floor(prevBattle.loser.rankOld)} to `}
-            <span style={{ color: "#f77" }}>
-              {Math.floor(prevBattle.loser.rankNew)}
-            </span>
+            <a
+              style={{ color: "white" }}
+              target="_blank"
+              href={prevBattle.victor.igdbUrl}
+            >
+              {prevBattle.victor.name}
+            </a>
+            <div>
+              {` ${Math.floor(prevBattle.victor.rankOld)} to `}
+              <span style={{ color: "#7f7" }}>
+                {Math.floor(prevBattle.victor.rankNew)}
+              </span>
+            </div>
+            <a
+              style={{ color: "white" }}
+              target="_blank"
+              href={prevBattle.loser.igdbUrl}
+            >
+              {prevBattle.loser.name}
+            </a>
+            <div>
+              {` ${Math.floor(prevBattle.loser.rankOld)} to `}
+              <span style={{ color: "#f77" }}>
+                {Math.floor(prevBattle.loser.rankNew)}
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -136,13 +151,11 @@ const Battle = () => {
           background: "black",
           color: "white",
           textAlign: "center",
-          fontSize: "1.5em",
-          border: "white solid 0em",
-          borderTopWidth: "2px",
-          borderBottomWidth: "2px",
+          fontSize: "1.25em",
+          ...vsBorderStyle,
         }}
       >
-        vs
+        VS
       </div>
       <div style={{ display: "flex" }}>
         <Game
@@ -176,7 +189,7 @@ const Battle = () => {
             color: "white",
             background: "black",
             border: "none",
-            fontSize: "1.3em",
+            fontSize: "1.25em",
           }}
         >
           skip battle
