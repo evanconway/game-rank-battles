@@ -14,7 +14,7 @@ const GameDescription = ({ gameData }: { gameData: GameData }) => {
         padding: "1em",
       }}
     >
-      <h2>{gameData.name}</h2>
+      {isPhone ? <h2>{gameData.name}</h2> : null}
       <section style={{ fontSize: "1.25em" }}>
         <p>{gameData.summary}</p>
         <a target="_blank" style={{ color: "white" }} href={gameData.igdbUrl}>

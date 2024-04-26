@@ -58,14 +58,16 @@ const Battle = () => {
       <div
         style={{
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
           background: "black",
           color: "white",
           textAlign: "center",
           alignItems: "center",
+          padding: "1em",
         }}
       >
-        <div style={{ fontSize: "1.5em" }}>Previous Battle</div>
+        <div>Previous Battle</div>
         <div
           style={{
             padding: "0.5em",
@@ -112,16 +114,29 @@ const Battle = () => {
 
   return (
     <div>
-      <div
+      <section
         style={{
           background: "black",
           color: "white",
           textAlign: "center",
-          fontSize: "1.5em",
+          fontSize: "1.25em",
+          padding: "1em",
+          paddingBottom: "5em",
         }}
       >
-        choose your favorite
-      </div>
+        We love games and we love comparing things. Below you'll find 2 games.
+        Click your favorite. Each game is given an{" "}
+        <a
+          style={{ color: "white" }}
+          target="_blank"
+          href="https://en.wikipedia.org/wiki/Elo_rating_system"
+        >
+          Elo Rating
+        </a>{" "}
+        indicating how highly favored it is. Scroll to the bottom of the page to
+        see the results of your choice. Check the rankings page to see which
+        games are the most popular.
+      </section>
       <div
         style={{
           background: "black",
