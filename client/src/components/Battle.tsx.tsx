@@ -106,14 +106,8 @@ const Battle = () => {
       </div>
     );
 
-  const gameHeaderStyle: React.CSSProperties = {
-    fontSize: "1em",
-    margin: "0 0",
-    padding: "0.5em",
-  };
-
   return (
-    <div>
+    <div style={{ background: "black" }}>
       <section
         style={{
           background: "black",
@@ -143,23 +137,22 @@ const Battle = () => {
           color: "white",
           textAlign: "center",
           fontSize: "1.5em",
-          display: "grid",
-          gridTemplateColumns: "1fr 2ch 1fr",
-          alignItems: "center",
-          gap: "0.4em",
+          border: "white solid 0em",
+          borderTopWidth: "2px",
+          borderBottomWidth: "2px",
         }}
       >
-        <h2 style={gameHeaderStyle}>{gameA.name}</h2>
-        <div>vs</div>
-        <h2 style={gameHeaderStyle}>{gameB.name}</h2>
+        vs
       </div>
       <div style={{ display: "flex" }}>
         <Game
+          title={gameA.name}
           coverUrl={gameA.coverUrl}
           onClick={() => submitVictor(gameA, gameB)}
           disabled={uploading}
         />
         <Game
+          title={gameB.name}
           coverUrl={gameB.coverUrl}
           onClick={() => submitVictor(gameB, gameA)}
           disabled={uploading}
@@ -167,7 +160,6 @@ const Battle = () => {
       </div>
       <div
         style={{
-          background: "black",
           textAlign: "center",
         }}
       >

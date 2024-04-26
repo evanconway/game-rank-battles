@@ -1,8 +1,10 @@
 const Game = ({
+  title,
   coverUrl,
   onClick,
   disabled,
 }: {
+  title: string;
   coverUrl: string;
   onClick: () => void;
   disabled: boolean;
@@ -11,7 +13,6 @@ const Game = ({
     <div
       style={{
         width: "50%",
-        background: "black",
       }}
     >
       <button
@@ -23,9 +24,11 @@ const Game = ({
           border: "none",
           cursor: disabled ? "default" : "pointer",
           background: "black",
+          color: "white",
         }}
         disabled={disabled}
       >
+        <h2>{title}</h2>
         <img
           style={{
             width: "100%",
