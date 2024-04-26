@@ -1,7 +1,7 @@
 import { Database as Sqlite3Database } from "sqlite3";
 import { open } from "sqlite";
 import { createTables } from "./createTables";
-import { Game } from "./api";
+import { Game } from "./models";
 import { eloGetNewRanks } from "./elo";
 
 // function signatures

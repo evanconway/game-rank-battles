@@ -1,4 +1,5 @@
-import getAPIFunctions, { Game } from "./api";
+import { Game } from "models";
+import getAPIFunctions from "./api";
 import getDatabaseFunctions from "./database";
 
 // hand picked game platforms the website will support

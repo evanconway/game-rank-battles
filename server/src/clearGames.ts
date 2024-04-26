@@ -5,7 +5,7 @@ const clearGames = async () => {
   const { databaseDeleteAllGames } = await getDatabaseFunctions();
   console.log("deleting games...");
   await databaseDeleteAllGames();
-  console.log("all game entries delete from database");
+  console.log("all game entries deleted from database");
 };
 
 clearGames();

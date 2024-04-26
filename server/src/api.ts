@@ -2,16 +2,6 @@ import { config } from "dotenv";
 
 config();
 
-export interface Game {
-  id: number;
-  name: string;
-  releaseDate: number;
-  summary: string;
-  igdbUrl: string;
-  coverUrl: string;
-  rating: number;
-}
-
 const IGDB_LIMIT = 500;
 const MINIMUM_USER_RATING_COUNT = 25;
 
@@ -37,11 +27,7 @@ const getAccess = async () => {
     )
   ).json();
 
-  const {
-    access_token: accessToken,
-    expires_in: expiresIn,
-    token_type: bearer,
-  } = response;
+  const { access_token: accessToken } = response;
   return { clientId, accessToken };
 };
 
