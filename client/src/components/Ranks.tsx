@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import Link from "./Link.tsx";
-import { BRAND_COLOR } from "../styles";
+import { BRAND_COLOR, vsBorderStyle } from "../styles";
 import { useIsPhone } from "../util";
 
 interface Rank {
@@ -32,7 +32,6 @@ const Ranks = () => {
       style={{
         fontSize: "0.65em",
         display: "flex",
-        background: "black",
         gap: "1em",
         padding: "1em",
         justifyContent: "center",
@@ -59,7 +58,6 @@ const Ranks = () => {
       <ul
         style={{
           listStyle: "none",
-          background: BRAND_COLOR,
           margin: 0,
           padding: 0,
         }}
@@ -69,7 +67,6 @@ const Ranks = () => {
             <li
               key={i}
               style={{
-                color: "white",
                 textAlign: "center",
                 fontSize: "1.25em",
                 display: "flex",
@@ -78,9 +75,9 @@ const Ranks = () => {
             >
               <div
                 style={{
-                  background: "black",
                   fontSize: "1.5em",
                   padding: "0.25em",
+                  ...vsBorderStyle,
                 }}
               >
                 #
@@ -95,8 +92,8 @@ const Ranks = () => {
                 <div>{Math.floor(rank.rank)}</div>
                 <p>{rank.summary}</p>
                 <a
-                  target="_blank"
                   style={{ color: "white" }}
+                  target="_blank"
                   href={rank.igdbUrl}
                 >
                   Learn More
@@ -107,16 +104,15 @@ const Ranks = () => {
             <li
               key={i}
               style={{
-                color: "white",
                 fontSize: "1.25em",
               }}
             >
               <div
                 style={{
-                  background: "black",
                   fontSize: "1.5em",
                   padding: "0.25em",
-                  textAlign: "center",
+                  textAlign: "left",
+                  ...vsBorderStyle,
                 }}
               >
                 #
@@ -126,7 +122,7 @@ const Ranks = () => {
                 })}
               </div>
               <div>
-                <section style={{ color: "white", width: "100%" }}>
+                <section style={{ width: "100%" }}>
                   <img
                     style={{
                       float: "left",
@@ -141,8 +137,8 @@ const Ranks = () => {
                   <p>
                     {rank.summary}{" "}
                     <a
-                      target="_blank"
                       style={{ color: "white" }}
+                      target="_blank"
                       href={rank.igdbUrl}
                     >
                       Learn More

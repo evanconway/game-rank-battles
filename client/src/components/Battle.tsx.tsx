@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Game from "./Game";
 import { useLoaderData } from "react-router-dom";
 import GameDescriptions from "./GameDescriptions";
+import { vsBorderStyle } from "../styles";
 
 export interface GameData {
   readonly id: number;
@@ -53,25 +54,16 @@ const Battle = () => {
     setUploading(false);
   };
 
-  const vsBorderStyle: React.CSSProperties = {
-    border: "white solid 0em",
-    borderTopWidth: "2px",
-    borderBottomWidth: "2px",
-  };
-
   const previousBattleElement =
     prevBattle === null ? null : (
       <div
         style={{
-          background: "black",
-          color: "white",
           textAlign: "center",
           fontSize: "1.25em",
-          paddingTop: "0.5em",
           paddingBottom: "0.5em",
         }}
       >
-        <div style={{ paddingBottom: "0.5em" }}>Previous Battle</div>
+        <div style={{ ...vsBorderStyle }}>Previous Battle</div>
         <div
           style={{
             display: "flex",
@@ -79,7 +71,6 @@ const Battle = () => {
             justifyContent: "center",
             alignItems: "center",
             padding: "0.5em",
-            ...vsBorderStyle,
           }}
         >
           <div
@@ -122,11 +113,9 @@ const Battle = () => {
     );
 
   return (
-    <div style={{ background: "black" }}>
+    <div>
       <section
         style={{
-          background: "black",
-          color: "white",
           textAlign: "center",
           fontSize: "1.25em",
           padding: "1em",
@@ -148,8 +137,6 @@ const Battle = () => {
       </section>
       <div
         style={{
-          background: "black",
-          color: "white",
           textAlign: "center",
           fontSize: "1.25em",
           ...vsBorderStyle,
@@ -173,6 +160,7 @@ const Battle = () => {
       </div>
       <div
         style={{
+          paddingTop: "0.75em",
           textAlign: "center",
         }}
       >
@@ -188,7 +176,8 @@ const Battle = () => {
             cursor: "pointer",
             color: "white",
             background: "black",
-            border: "none",
+            border: "2px solid",
+            borderRadius: "0.5em",
             fontSize: "1.25em",
           }}
         >

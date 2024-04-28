@@ -9,3 +9,9 @@ export const applyBodyHTMLStyles = () => {
   html.style["fontFamily"] = "Arial, Helvetica, sans-serif";
   html.style["background"] = BRAND_COLOR;
 };
+
+export const vsBorderStyle: React.CSSProperties = {
+  border: "white solid 0em",
+  borderTopWidth: "2px",
+  borderBottomWidth: "2px",
+};

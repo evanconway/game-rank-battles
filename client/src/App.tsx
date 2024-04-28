@@ -9,14 +9,20 @@ const App = () => {
   const isPhone = useIsPhone();
 
   return (
-    <div style={{ background: "white", maxWidth: "900px", margin: "0 auto" }}>
-      <div style={{ background: "black", padding: "2em 0 4em 0" }}>
+    <div
+      style={{
+        background: "black",
+        color: "white",
+        maxWidth: "900px",
+        margin: "0 auto",
+      }}
+    >
+      <div style={{ padding: "2em 0 4em 0" }}>
         <h1
           style={{
             fontSize: "3em",
             textAlign: "center",
             paddingBottom: "0",
-            color: "white",
             marginBottom: 0,
             marginTop: 0,
           }}

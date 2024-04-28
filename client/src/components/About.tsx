@@ -1,10 +1,6 @@
-import { BRAND_COLOR } from "../styles";
-
 const About = () => {
   return (
-    <section
-      style={{ background: BRAND_COLOR, color: "white", padding: "0.25em" }}
-    >
+    <section style={{ padding: "0.25em" }}>
       <h2 style={{ margin: 0 }}>Ranking Games</h2>
       <p>
         See your favorite games matched against eachother in a 1 vs 1 popularity

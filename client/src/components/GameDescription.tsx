@@ -1,4 +1,3 @@
-import { BRAND_COLOR } from "../styles";
 import { useIsPhone } from "../util.ts";
 import { GameData } from "./Battle.tsx";
 
@@ -9,8 +8,6 @@ const GameDescription = ({ gameData }: { gameData: GameData }) => {
     <div
       style={{
         width: !isPhone ? "50%" : undefined,
-        background: BRAND_COLOR,
-        color: "white",
         padding: "1em",
       }}
     >
