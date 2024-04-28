@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import Link from "./Link.tsx";
-import { BRAND_COLOR, vsBorderStyle } from "../styles";
+import { vsBorderStyle } from "../styles";
 import { useIsPhone } from "../util";
 
 interface Rank {
