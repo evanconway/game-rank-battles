@@ -1,6 +1,7 @@
 import express from "express";
 import path from "path";
 import { config } from "dotenv";
+import { readFile } from "fs/promises";
 import getDatabaseFunctions from "./database";
 import appRouter from "./app";
 
@@ -36,12 +37,29 @@ const startServer = async () => {
 
   app.use(express.static(path.join(__dirname, staticFilesRelativeDir)));
 
+  const indexHTML = (
+    await readFile(path.join(__dirname, staticFilesRelativeDir, "index.html"))
+  ).toString();
+
   app.get("*", (req, res) => {
-    if (req.url === "/favicon.ico") {
+    const url = new URL(req.url, `http://${req.headers.host}`);
+
+    if (url.pathname === "/favicon.ico") {
       res.sendStatus(404);
       return;
     }
-    res.sendFile(path.join(__dirname, staticFilesRelativeDir, "index.html"));
+
+    if (url.pathname === "/share") {
+      res.send(
+        indexHTML.replace(
+          "<!--auto-replace-me-->",
+          `<meta property="og:image" content="https://${url.host}/app/image?a=${req.query["a"]}&b=${req.query["b"]}">`,
+        ),
+      );
+      return;
+    }
+
+    res.send(indexHTML);
   });
 
   const port = process.env["PORT"];
