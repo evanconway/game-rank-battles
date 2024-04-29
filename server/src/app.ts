@@ -7,6 +7,7 @@ import {
   DatabaseUpdateGameElo,
 } from "database";
 import { Router } from "express";
+import { generateMergedImage } from "./mergeImages";
 import { v4 as uuid } from "uuid";
 
 interface Battle {
@@ -104,6 +105,12 @@ const appRouter = (
       console.log(err);
       res.json(await databaseGetGameRanks(0));
     }
+    return;
+  });
+
+  router.get("/image", async (req, res) => {
+    const filePath = await generateMergedImage();
+    res.sendFile(filePath);
     return;
   });
 
