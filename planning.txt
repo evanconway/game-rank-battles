@@ -19,6 +19,10 @@ Wow, after looking at the data from this change, this is obviously so much bette
 Ah, we tried to deploy our changes, but our remote machine won't run the load games script. I know the remote machine isn't very powerful, but I think this has more to do with poor SQL on my part. Let's review that next.
 
 
-29th of April, 2024
+28th of April, 2024
 
 I'm still no designer, but I'm feeling better about the look and layout of the site. But there are a couple more features I'd like to add. I want to be able to share game comparisons, and hopefully I can use meta tags so images of the compared games will show up when linked in Discord or similar places. That, and any issues with copy (mostly likely in the about page), and I think we can call this finished.
+
+29th of April, 2024
+
+After doing some digging, getting the game comparison images to show up with meta tags is going to be a bit tricker than I thought. Firstly the technology is called Open Graph. Second, it looks like we can only display a single image using meta tags. Based on some research, it seems like the only way to do this properly is to dynamically create a new image file of the two games on request. Luckily I think there are libraries that already do this. We'll have to do more research and messing around.

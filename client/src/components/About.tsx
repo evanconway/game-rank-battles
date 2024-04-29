@@ -9,7 +9,7 @@ const About = () => {
       >
         about
       </div>
-      <div style={{ textAlign: "center" }}>
+      <div style={{ padding: "1em", textAlign: "center" }}>
         Hi! I'm <A href="https://evanconway.github.io">Evan Conway</A> and I
         made this site.
       </div>
