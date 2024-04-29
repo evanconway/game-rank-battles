@@ -1,12 +1,10 @@
 import { BRAND_COLORS } from "../styles";
 
 const Game = ({
-  title,
   coverUrl,
   onClick,
   disabled,
 }: {
-  title: string;
   coverUrl: string;
   onClick: () => void;
   disabled: boolean;
@@ -30,7 +28,6 @@ const Game = ({
         }}
         disabled={disabled}
       >
-        <h2>{title}</h2>
         <img
           style={{
             width: "100%",

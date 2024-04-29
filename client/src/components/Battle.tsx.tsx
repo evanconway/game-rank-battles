@@ -4,6 +4,7 @@ import { useLoaderData } from "react-router-dom";
 import GameDescriptions from "./GameDescriptions";
 import { BRAND_COLORS, vsBorderStyle } from "../styles";
 import A from "./A";
+import GameTitle from "./GameTitle";
 
 export interface GameData {
   readonly id: number;
@@ -128,14 +129,26 @@ const Battle = () => {
         VS
       </div>
       <div style={{ display: "flex" }}>
+        <GameTitle
+          disabled={uploading}
+          onClick={() => submitVictor(gameA, gameB)}
+        >
+          {gameA.name}
+        </GameTitle>
+        <GameTitle
+          disabled={uploading}
+          onClick={() => submitVictor(gameB, gameA)}
+        >
+          {gameB.name}
+        </GameTitle>
+      </div>
+      <div style={{ display: "flex" }}>
         <Game
-          title={gameA.name}
           coverUrl={gameA.coverUrl}
           onClick={() => submitVictor(gameA, gameB)}
           disabled={uploading}
         />
         <Game
-          title={gameB.name}
           coverUrl={gameB.coverUrl}
           onClick={() => submitVictor(gameB, gameA)}
           disabled={uploading}

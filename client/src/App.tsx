@@ -39,7 +39,7 @@ const App = () => {
             justifyContent: "center",
           }}
         >
-          <Link to="/" name="Home" />
+          <Link to="/" name="Battle" />
           <Link to="/ranks?p=0" name="Rankings" />
           <Link to="/about" name="About" />
         </div>
