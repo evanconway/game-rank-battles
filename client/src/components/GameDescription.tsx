@@ -1,5 +1,5 @@
-import { BRAND_COLORS } from "../styles.ts";
 import { useIsPhone } from "../util.ts";
+import A from "./A.tsx";
 import { GameData } from "./Battle.tsx";
 
 const GameDescription = ({ gameData }: { gameData: GameData }) => {
@@ -15,9 +15,7 @@ const GameDescription = ({ gameData }: { gameData: GameData }) => {
       {isPhone ? <h2>{gameData.name}</h2> : null}
       <section style={{ fontSize: "1.25em" }}>
         <p>{gameData.summary}</p>
-        <a target="_blank" style={{ color: BRAND_COLORS.link }} href={gameData.igdbUrl}>
-          Learn More
-        </a>
+        <A href={gameData.igdbUrl}>Learn More</A>
       </section>
     </div>
   );

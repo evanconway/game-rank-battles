@@ -1,7 +1,8 @@
 import { useLoaderData } from "react-router-dom";
 import Link from "./Link.tsx";
-import { BRAND_COLORS, vsBorderStyle } from "../styles";
+import { vsBorderStyle } from "../styles";
 import { useIsPhone } from "../util";
+import A from "./A.tsx";
 
 interface Rank {
   coverUrl: string;
@@ -90,13 +91,7 @@ const Ranks = () => {
                 <div>{rank.name}</div>
                 <div>{Math.floor(rank.rank)}</div>
                 <p>{rank.summary}</p>
-                <a
-                  style={{ color: BRAND_COLORS.link }}
-                  target="_blank"
-                  href={rank.igdbUrl}
-                >
-                  Learn More
-                </a>
+                <A href={rank.igdbUrl}>Learn More</A>
               </div>
             </li>
           ) : (
@@ -134,14 +129,7 @@ const Ranks = () => {
                   </h2>
                   <div>{Math.floor(rank.rank)}</div>
                   <p>
-                    {rank.summary}{" "}
-                    <a
-                      style={{ color: BRAND_COLORS.link }}
-                      target="_blank"
-                      href={rank.igdbUrl}
-                    >
-                      Learn More
-                    </a>
+                    {rank.summary} <A href={rank.igdbUrl}>Learn More</A>
                   </p>
                 </section>
                 <div style={{ clear: "both" }}></div>

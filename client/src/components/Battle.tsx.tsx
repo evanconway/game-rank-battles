@@ -3,6 +3,7 @@ import Game from "./Game";
 import { useLoaderData } from "react-router-dom";
 import GameDescriptions from "./GameDescriptions";
 import { BRAND_COLORS, vsBorderStyle } from "../styles";
+import A from "./A";
 
 export interface GameData {
   readonly id: number;
@@ -81,26 +82,14 @@ const Battle = () => {
               gap: "0.5em",
             }}
           >
-            <a
-              style={{ color: BRAND_COLORS.link }}
-              target="_blank"
-              href={prevBattle.victor.igdbUrl}
-            >
-              {prevBattle.victor.name}
-            </a>
+            <A href={prevBattle.victor.igdbUrl}>{prevBattle.victor.name}</A>
             <div>
               {` ${Math.floor(prevBattle.victor.rankOld)} to `}
               <span style={{ color: BRAND_COLORS.victor }}>
                 {Math.floor(prevBattle.victor.rankNew)}
               </span>
             </div>
-            <a
-              style={{ color: BRAND_COLORS.link }}
-              target="_blank"
-              href={prevBattle.loser.igdbUrl}
-            >
-              {prevBattle.loser.name}
-            </a>
+            <A href={prevBattle.loser.igdbUrl}>{prevBattle.loser.name}</A>
             <div>
               {` ${Math.floor(prevBattle.loser.rankOld)} to `}
               <span style={{ color: BRAND_COLORS.loser }}>
@@ -124,13 +113,7 @@ const Battle = () => {
       >
         We love games and we love comparing things. Below you'll find 2 games.
         Click your favorite. Each game is given an{" "}
-        <a
-          style={{ color: BRAND_COLORS.link }}
-          target="_blank"
-          href="https://en.wikipedia.org/wiki/Elo_rating_system"
-        >
-          Elo Rating
-        </a>{" "}
+        <A href="https://en.wikipedia.org/wiki/Elo_rating_system">Elo Rating</A>{" "}
         indicating how highly favored it is. Scroll to the bottom of the page to
         see the results of your choice. Check the rankings page to see which
         games are the most popular.
