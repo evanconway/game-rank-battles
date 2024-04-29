@@ -183,7 +183,24 @@ const Battle = () => {
         >
           skip battle
         </button>
-        <A href={`/share?a=${gameA.id}&b=${gameB.id}`}>share this battle</A>
+        <button
+          onClick={async () => {
+            const url = `${document.baseURI}share?a=${gameA.id}&b=${gameB.id}`;
+            await navigator.clipboard.writeText(url);
+            alert(`Link to ${gameA.name} vs ${gameB.name} copied to clipoard.`);
+          }}
+          style={{
+            padding: "0.5em",
+            cursor: "pointer",
+            color: "white",
+            background: BRAND_COLORS.appBackground,
+            border: "2px solid",
+            borderRadius: "0.5em",
+            fontSize: "1.25em",
+          }}
+        >
+          share this battle
+        </button>
       </div>
       <GameDescriptions gameA={gameA} gameB={gameB} />
       {previousBattleElement}
