@@ -37,6 +37,10 @@ const startServer = async () => {
   app.use(express.static(path.join(__dirname, staticFilesRelativeDir)));
 
   app.get("*", (req, res) => {
+    if (req.url === "/favicon.ico") {
+      res.sendStatus(404);
+      return;
+    }
     res.sendFile(path.join(__dirname, staticFilesRelativeDir, "index.html"));
   });
 
