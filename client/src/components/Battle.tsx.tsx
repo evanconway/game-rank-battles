@@ -82,7 +82,7 @@ const Battle = () => {
             }}
           >
             <a
-              style={{ color: BRAND_COLORS.linkUnclicked }}
+              style={{ color: BRAND_COLORS.link }}
               target="_blank"
               href={prevBattle.victor.igdbUrl}
             >
@@ -95,7 +95,7 @@ const Battle = () => {
               </span>
             </div>
             <a
-              style={{ color: BRAND_COLORS.linkUnclicked }}
+              style={{ color: BRAND_COLORS.link }}
               target="_blank"
               href={prevBattle.loser.igdbUrl}
             >
@@ -125,7 +125,7 @@ const Battle = () => {
         We love games and we love comparing things. Below you'll find 2 games.
         Click your favorite. Each game is given an{" "}
         <a
-          style={{ color: BRAND_COLORS.linkUnclicked }}
+          style={{ color: BRAND_COLORS.link }}
           target="_blank"
           href="https://en.wikipedia.org/wiki/Elo_rating_system"
         >

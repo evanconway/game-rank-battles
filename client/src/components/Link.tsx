@@ -1,4 +1,5 @@
 import { Link as ReactRouterLink } from "react-router-dom";
+import { BRAND_COLORS } from "../styles";
 
 const Link = ({
   to,
@@ -10,7 +11,7 @@ const Link = ({
   disabled?: boolean;
 }) => {
   const style: React.CSSProperties = {
-    color: disabled ? "gray" : "white",
+    color: disabled ? "gray" : BRAND_COLORS.link,
     fontSize: "2em",
   };
 

@@ -92,7 +92,7 @@ const Ranks = () => {
                 <div>{Math.floor(rank.rank)}</div>
                 <p>{rank.summary}</p>
                 <a
-                  style={{ color: BRAND_COLORS.linkUnclicked }}
+                  style={{ color: BRAND_COLORS.link }}
                   target="_blank"
                   href={rank.igdbUrl}
                 >
@@ -137,7 +137,7 @@ const Ranks = () => {
                   <p>
                     {rank.summary}{" "}
                     <a
-                      style={{ color: BRAND_COLORS.linkUnclicked }}
+                      style={{ color: BRAND_COLORS.link }}
                       target="_blank"
                       href={rank.igdbUrl}
                     >

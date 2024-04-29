@@ -15,7 +15,7 @@ const GameDescription = ({ gameData }: { gameData: GameData }) => {
       {isPhone ? <h2>{gameData.name}</h2> : null}
       <section style={{ fontSize: "1.25em" }}>
         <p>{gameData.summary}</p>
-        <a target="_blank" style={{ color: BRAND_COLORS.linkUnclicked }} href={gameData.igdbUrl}>
+        <a target="_blank" style={{ color: BRAND_COLORS.link }} href={gameData.igdbUrl}>
           Learn More
         </a>
       </section>

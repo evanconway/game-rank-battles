@@ -8,7 +8,7 @@ const About = () => {
         See your favorite games matched against eachother in a 1 vs 1 popularity
         contest. Each game has an{" "}
         <a
-          style={{ color: BRAND_COLORS.linkUnclicked }}
+          style={{ color: BRAND_COLORS.link }}
           target="_blank"
           href="https://en.wikipedia.org/wiki/Elo_rating_system"
         >
@@ -20,7 +20,7 @@ const About = () => {
       <footer style={{ textAlign: "center" }}>
         by{" "}
         <a
-          style={{ color: BRAND_COLORS.linkUnclicked }}
+          style={{ color: BRAND_COLORS.link }}
           target="_blank"
           href="https://evanconway.github.io"
         >
