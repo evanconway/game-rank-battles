@@ -109,9 +109,17 @@ const appRouter = (
   });
 
   router.get("/image", async (req, res) => {
-    const filePath = await generateMergedImage();
-    res.sendFile(filePath);
-    return;
+    try {
+      const gameAId = Number.parseInt(req.query["a"] as string);
+      const gameBId = Number.parseInt(req.query["b"] as string);
+      const gameACoverUrl = (await databaseGetGameById(gameAId)).coverUrl;
+      const gameBCoverUrl = (await databaseGetGameById(gameBId)).coverUrl;
+      const filePath = await generateMergedImage(gameACoverUrl, gameBCoverUrl);
+      res.sendFile(filePath);
+    } catch (err) {
+      res.sendStatus(404);
+      return;
+    }
   });
 
   router.use("*", (req, res) => {

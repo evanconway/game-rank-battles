@@ -1,14 +1,13 @@
 import { createCanvas, loadImage } from "canvas";
-import { writeFileSync, mkdirSync } from "fs";
+import { writeFileSync, mkdirSync, existsSync } from "fs";
 import path from "path";
 
-export const generateMergedImage = async () => {
-  const imageA = await loadImage(
-    "https://images.igdb.com/igdb/image/upload/t_cover_big/co65za.jpg",
-  );
-  const imageB = await loadImage(
-    "https://images.igdb.com/igdb/image/upload/t_cover_big/co2gki.jpg",
-  );
+export const generateMergedImage = async (
+  coverAUrl: string,
+  coverBUrl: string,
+) => {
+  const imageA = await loadImage(coverAUrl);
+  const imageB = await loadImage(coverBUrl);
   const imageCanvas = createCanvas(
     imageA.naturalWidth + imageB.naturalWidth,
     Math.max(imageA.naturalHeight, imageB.naturalHeight),
@@ -18,9 +17,9 @@ export const generateMergedImage = async () => {
   context.drawImage(imageA, 0, 0);
   context.drawImage(imageB, imageA.naturalWidth, 0);
 
-  const tempDir = "../temp";
-  mkdirSync(path.join(__dirname, tempDir));
-  const filePath = path.join(__dirname, tempDir, "temp.png");
-  writeFileSync(filePath, imageCanvas.toBuffer("image/png"), { flag: "a+" });
+  const tempDir = path.join(__dirname, "../temp");
+  if (!existsSync(tempDir)) mkdirSync(tempDir);
+  const filePath = path.join(tempDir, "temp.png");
+  writeFileSync(filePath, imageCanvas.toBuffer("image/png"));
   return filePath;
 };
