@@ -2,7 +2,7 @@ import { useState } from "react";
 import Game from "./Game";
 import { useLoaderData } from "react-router-dom";
 import GameDescriptions from "./GameDescriptions";
-import { vsBorderStyle } from "../styles";
+import { BRAND_COLORS, vsBorderStyle } from "../styles";
 
 export interface GameData {
   readonly id: number;
@@ -82,7 +82,7 @@ const Battle = () => {
             }}
           >
             <a
-              style={{ color: "white" }}
+              style={{ color: BRAND_COLORS.linkUnclicked }}
               target="_blank"
               href={prevBattle.victor.igdbUrl}
             >
@@ -90,12 +90,12 @@ const Battle = () => {
             </a>
             <div>
               {` ${Math.floor(prevBattle.victor.rankOld)} to `}
-              <span style={{ color: "#7f7" }}>
+              <span style={{ color: BRAND_COLORS.victor }}>
                 {Math.floor(prevBattle.victor.rankNew)}
               </span>
             </div>
             <a
-              style={{ color: "white" }}
+              style={{ color: BRAND_COLORS.linkUnclicked }}
               target="_blank"
               href={prevBattle.loser.igdbUrl}
             >
@@ -103,7 +103,7 @@ const Battle = () => {
             </a>
             <div>
               {` ${Math.floor(prevBattle.loser.rankOld)} to `}
-              <span style={{ color: "#f77" }}>
+              <span style={{ color: BRAND_COLORS.loser }}>
                 {Math.floor(prevBattle.loser.rankNew)}
               </span>
             </div>
@@ -125,7 +125,7 @@ const Battle = () => {
         We love games and we love comparing things. Below you'll find 2 games.
         Click your favorite. Each game is given an{" "}
         <a
-          style={{ color: "white" }}
+          style={{ color: BRAND_COLORS.linkUnclicked }}
           target="_blank"
           href="https://en.wikipedia.org/wiki/Elo_rating_system"
         >
@@ -175,7 +175,7 @@ const Battle = () => {
             padding: "0.5em",
             cursor: "pointer",
             color: "white",
-            background: "black",
+            background: BRAND_COLORS.appBackground,
             border: "2px solid",
             borderRadius: "0.5em",
             fontSize: "1.25em",

@@ -1,3 +1,5 @@
+import { BRAND_COLORS } from "../styles";
+
 const About = () => {
   return (
     <section style={{ padding: "0.25em" }}>
@@ -6,7 +8,7 @@ const About = () => {
         See your favorite games matched against eachother in a 1 vs 1 popularity
         contest. Each game has an{" "}
         <a
-          style={{ color: "white" }}
+          style={{ color: BRAND_COLORS.linkUnclicked }}
           target="_blank"
           href="https://en.wikipedia.org/wiki/Elo_rating_system"
         >
@@ -18,7 +20,7 @@ const About = () => {
       <footer style={{ textAlign: "center" }}>
         by{" "}
         <a
-          style={{ color: "white" }}
+          style={{ color: BRAND_COLORS.linkUnclicked }}
           target="_blank"
           href="https://evanconway.github.io"
         >

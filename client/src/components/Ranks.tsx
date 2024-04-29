@@ -1,6 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import Link from "./Link.tsx";
-import { vsBorderStyle } from "../styles";
+import { BRAND_COLORS, vsBorderStyle } from "../styles";
 import { useIsPhone } from "../util";
 
 interface Rank {
@@ -92,7 +92,7 @@ const Ranks = () => {
                 <div>{Math.floor(rank.rank)}</div>
                 <p>{rank.summary}</p>
                 <a
-                  style={{ color: "white" }}
+                  style={{ color: BRAND_COLORS.linkUnclicked }}
                   target="_blank"
                   href={rank.igdbUrl}
                 >
@@ -137,7 +137,7 @@ const Ranks = () => {
                   <p>
                     {rank.summary}{" "}
                     <a
-                      style={{ color: "white" }}
+                      style={{ color: BRAND_COLORS.linkUnclicked }}
                       target="_blank"
                       href={rank.igdbUrl}
                     >

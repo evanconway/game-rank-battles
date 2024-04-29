@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Link from "./components/Link.tsx";
-import { applyBodyHTMLStyles } from "./styles.ts";
+import { BRAND_COLORS, applyBodyHTMLStyles } from "./styles.ts";
 import { useIsPhone } from "./util.ts";
 
 const App = () => {
@@ -11,8 +11,8 @@ const App = () => {
   return (
     <div
       style={{
-        background: "black",
-        color: "white",
+        background: BRAND_COLORS.appBackground,
+        color: BRAND_COLORS.text,
         maxWidth: "900px",
         margin: "0 auto",
       }}

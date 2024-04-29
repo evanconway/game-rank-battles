@@ -1,3 +1,5 @@
+import { BRAND_COLORS } from "../styles";
+
 const Game = ({
   title,
   coverUrl,
@@ -23,7 +25,7 @@ const Game = ({
           margin: 0,
           border: "none",
           cursor: disabled ? "default" : "pointer",
-          background: "black",
+          background: BRAND_COLORS.appBackground,
           color: "white",
         }}
         disabled={disabled}
