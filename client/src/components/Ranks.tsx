@@ -75,8 +75,7 @@ const Ranks = () => {
             >
               <div
                 style={{
-                  fontSize: "1.5em",
-                  padding: "0.25em",
+                  fontSize: "1.25em",
                   ...vsBorderStyle,
                 }}
               >
@@ -109,9 +108,9 @@ const Ranks = () => {
             >
               <div
                 style={{
-                  fontSize: "1.5em",
-                  padding: "0.25em",
+                  fontSize: "1.25em",
                   textAlign: "left",
+                  paddingLeft: "0.25em",
                   ...vsBorderStyle,
                 }}
               >
