@@ -5,6 +5,7 @@ import App from "./App.tsx";
 import Battle, { loaderBattlePage } from "./components/Battle.tsx.tsx";
 import Ranks, { loaderRankPage } from "./components/Ranks.tsx";
 import About from "./components/About.tsx";
+import Share, { loaderSharePage } from "./components/Share.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -27,6 +28,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             {
               path: "/about",
               element: <About />,
+            },
+            {
+              path: "/share",
+              element: <Share />,
+              loader: loaderSharePage,
             },
           ],
         },

@@ -33,7 +33,6 @@ const Game = ({
             width: "100%",
             padding: 0,
             margin: 0,
-            opacity: disabled ? 0.5 : 1,
           }}
           src={coverUrl}
         ></img>

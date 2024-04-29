@@ -122,6 +122,15 @@ const appRouter = (
     }
   });
 
+  router.get("/games", async (req, res) => {
+    const gameAId = Number.parseInt(req.query["a"] as string);
+    const gameBId = Number.parseInt(req.query["b"] as string);
+    const gameA = await databaseGetGameById(gameAId);
+    const gameB = await databaseGetGameById(gameBId);
+    res.json({ gameA, gameB });
+    return;
+  });
+
   router.use("*", (req, res) => {
     res.send("app route not defined");
   });

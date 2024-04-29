@@ -156,8 +156,12 @@ const Battle = () => {
       </div>
       <div
         style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
           paddingTop: "0.75em",
           textAlign: "center",
+          gap: "1em",
         }}
       >
         <button
@@ -179,6 +183,7 @@ const Battle = () => {
         >
           skip battle
         </button>
+        <A href={`/share?a=${gameA.id}&b=${gameB.id}`}>share this battle</A>
       </div>
       <GameDescriptions gameA={gameA} gameB={gameB} />
       {previousBattleElement}
