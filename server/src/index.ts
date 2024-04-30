@@ -4,6 +4,7 @@ import { config } from "dotenv";
 import { readFile } from "fs/promises";
 import getDatabaseFunctions from "./database";
 import appRouter from "./app";
+import { getMetaTags } from "./injectMeta";
 
 config();
 
@@ -35,11 +36,19 @@ const startServer = async () => {
     ),
   );
 
-  app.use(express.static(path.join(__dirname, staticFilesRelativeDir)));
-
   const indexHTML = (
     await readFile(path.join(__dirname, staticFilesRelativeDir, "index.html"))
   ).toString();
+
+  const injectStr = "<!--inject-here-->";
+
+  app.get("/", (req, res) => {
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    res.send(indexHTML.replace(injectStr, getMetaTags(url)));
+    return;
+  });
+
+  app.use(express.static(path.join(__dirname, staticFilesRelativeDir)));
 
   app.get("*", (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host}`);
@@ -52,14 +61,18 @@ const startServer = async () => {
     if (url.pathname === "/share") {
       res.send(
         indexHTML.replace(
-          "<!--auto-replace-me-->",
-          `<meta property="og:image" content="https://${url.host}/app/image?a=${req.query["a"]}&b=${req.query["b"]}">`,
+          injectStr,
+          getMetaTags(
+            url,
+            "Which would you choose?",
+            `https://${url.host}/app/image?a=${req.query["a"]}&b=${req.query["b"]}`,
+          ),
         ),
       );
       return;
     }
 
-    res.send(indexHTML);
+    res.send(indexHTML.replace(injectStr, getMetaTags(url)));
   });
 
   const port = process.env["PORT"];
