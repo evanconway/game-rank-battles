@@ -9,6 +9,7 @@ import {
 import { Router } from "express";
 import { generateMergedImage } from "./mergeImages";
 import { v4 as uuid } from "uuid";
+import path from "path";
 
 interface Battle {
   gameA: number;
@@ -120,6 +121,11 @@ const appRouter = (
       res.sendStatus(404);
       return;
     }
+  });
+
+  router.get("/title", (req, res) => {
+    res.sendFile(path.join(__dirname, "../title.png"));
+    return;
   });
 
   router.get("/games", async (req, res) => {

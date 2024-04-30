@@ -1,8 +1,12 @@
 export const getMetaTags = (
   url: URL,
   description: string = "Rank games in head-to-head battles.",
-  imageUrl: string = "",
+  imageUrl?: string,
 ) => {
+  if (imageUrl === undefined) {
+    imageUrl = `${url.origin}/app/title`;
+  }
+
   return `
 		<!-- HTML Meta Tags -->
 		<title>Games Head-To-Head</title>
