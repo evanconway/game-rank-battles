@@ -9,10 +9,6 @@ const About = () => {
       >
         about
       </div>
-      <div style={{ padding: "1em", textAlign: "center" }}>
-        Hi! I'm <A href="https://evanconway.github.io">Evan Conway</A> and I
-        made this site.
-      </div>
       <section style={{ padding: "1em" }}>
         <h2>The Why</h2>
         <p>
@@ -48,7 +44,14 @@ const About = () => {
           <A href="https://expressjs.com">ExpressJS</A> server hosted on a
           Digital Ocean droplet. The data is persisted with{" "}
           <A href="https://www.sqlite.org/index.html">SQLite</A> and the process
-          is kept alive with <A href="https://pm2.keymetrics.io/">PM2</A>
+          is kept alive with <A href="https://pm2.keymetrics.io/">PM2</A>.
+        </p>
+        <h2>The Who</h2>
+        <p>
+          Hi! I'm <A href="https://evanconway.github.io">Evan Conway</A> and I
+          made this site. I love code, music, and of course games. If you're
+          looking for a web developer please reach out to me! I'm open to new
+          opportunities.
         </p>
       </section>
     </div>
