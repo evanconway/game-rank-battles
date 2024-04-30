@@ -1,6 +1,6 @@
 export const getMetaTags = (
   url: URL,
-  description: string = "Rank games in head-to-head battles.",
+  description: string = "Rank your favorite games in 1 vs 1 battles.",
   imageUrl?: string,
 ) => {
   if (imageUrl === undefined) {
