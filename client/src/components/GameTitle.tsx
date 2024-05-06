@@ -4,10 +4,12 @@ const GameTitle = ({
   children,
   onClick,
   disabled,
+  isVictor,
 }: {
   children: string;
   onClick: () => void;
   disabled: boolean;
+  isVictor?: boolean;
 }) => {
   return (
     <button
@@ -20,7 +22,12 @@ const GameTitle = ({
         border: "none",
         cursor: disabled ? "default" : "pointer",
         background: BRAND_COLORS.appBackground,
-        color: "white",
+        color:
+          isVictor === undefined
+            ? "white"
+            : isVictor
+              ? BRAND_COLORS.victor
+              : BRAND_COLORS.loser,
       }}
     >
       <h2>{children}</h2>

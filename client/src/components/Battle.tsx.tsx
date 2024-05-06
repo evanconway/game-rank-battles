@@ -2,9 +2,11 @@ import { useState } from "react";
 import Game from "./Game";
 import { useLoaderData } from "react-router-dom";
 import GameDescriptions from "./GameDescriptions";
-import { BRAND_COLORS, vsBorderStyle } from "../styles";
+import { vsBorderStyle } from "../styles";
 import A from "./A";
 import GameTitle from "./GameTitle";
+import BattleResults, { BattleResultData } from "./BattleResults";
+import NextOrShare from "./SkipOrShare";
 
 export interface GameData {
   readonly id: number;
@@ -29,15 +31,14 @@ const Battle = () => {
   const [{ gameA, gameB, battleId }, setBattleData] =
     useState(loadedBattleData);
 
-  const [uploading, setUploading] = useState(false);
+  const [prevBattle, setPrevBattle] = useState<BattleResultData | null>(null);
 
-  const prevBattleStored = window.sessionStorage.getItem("prevBattle");
-
-  const prevBattle =
-    prevBattleStored !== null ? JSON.parse(prevBattleStored) : null;
+  const [battleState, setBattleState] = useState<
+    "loading" | "view" | "upload" | "results"
+  >("view");
 
   const submitVictor = async (victor: GameData, loser: GameData) => {
-    setUploading(true);
+    setBattleState("upload");
     const response = await (
       await fetch("/app/battle/end", {
         method: "POST",
@@ -51,56 +52,15 @@ const Battle = () => {
         }),
       })
     ).json();
-    window.sessionStorage.setItem("prevBattle", JSON.stringify(response));
-    setBattleData(await loaderBattlePage());
-    setUploading(false);
+    setPrevBattle(response as BattleResultData);
+    setBattleState("results");
   };
 
-  const previousBattleElement =
-    prevBattle === null ? null : (
-      <div
-        style={{
-          textAlign: "center",
-          fontSize: "1.25em",
-          paddingBottom: "0.5em",
-        }}
-      >
-        <div style={{ ...vsBorderStyle }}>Previous Battle</div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "0.5em",
-          }}
-        >
-          <div
-            style={{
-              padding: "0.5em",
-              display: "grid",
-              gridTemplateColumns: "fit-content(50%) fit-content(50%)",
-              gap: "0.5em",
-            }}
-          >
-            <A href={prevBattle.victor.igdbUrl}>{prevBattle.victor.name}</A>
-            <div>
-              {` ${Math.floor(prevBattle.victor.rankOld)} to `}
-              <span style={{ color: BRAND_COLORS.victor }}>
-                {Math.floor(prevBattle.victor.rankNew)}
-              </span>
-            </div>
-            <A href={prevBattle.loser.igdbUrl}>{prevBattle.loser.name}</A>
-            <div>
-              {` ${Math.floor(prevBattle.loser.rankOld)} to `}
-              <span style={{ color: BRAND_COLORS.loser }}>
-                {Math.floor(prevBattle.loser.rankNew)}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+  const gameAIsVictor =
+    prevBattle === null ? undefined : prevBattle.victor.name === gameA.name;
+
+  const gameBIsVictor =
+    prevBattle === null ? undefined : prevBattle.victor.name === gameB.name;
 
   return (
     <div>
@@ -130,14 +90,16 @@ const Battle = () => {
       </div>
       <div style={{ display: "flex" }}>
         <GameTitle
-          disabled={uploading}
+          disabled={battleState !== "view"}
           onClick={() => submitVictor(gameA, gameB)}
+          isVictor={gameAIsVictor}
         >
           {gameA.name}
         </GameTitle>
         <GameTitle
-          disabled={uploading}
+          disabled={battleState !== "view"}
           onClick={() => submitVictor(gameB, gameA)}
+          isVictor={gameBIsVictor}
         >
           {gameB.name}
         </GameTitle>
@@ -146,64 +108,36 @@ const Battle = () => {
         <Game
           coverUrl={gameA.coverUrl}
           onClick={() => submitVictor(gameA, gameB)}
-          disabled={uploading}
+          disabled={battleState !== "view"}
+          isVictor={gameAIsVictor}
         />
         <Game
           coverUrl={gameB.coverUrl}
           onClick={() => submitVictor(gameB, gameA)}
-          disabled={uploading}
+          disabled={battleState !== "view"}
+          isVictor={gameBIsVictor}
         />
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          paddingTop: "0.75em",
-          textAlign: "center",
-          gap: "1em",
+      <NextOrShare
+        onNextClick={async () => {
+          setBattleState("loading");
+          setPrevBattle(null);
+          setBattleData(await loaderBattlePage());
+          setBattleState("view");
         }}
-      >
-        <button
-          disabled={uploading}
-          onClick={async () => {
-            setUploading(true);
-            setBattleData(await loaderBattlePage());
-            setUploading(false);
-          }}
-          style={{
-            padding: "0.5em",
-            cursor: "pointer",
-            color: "white",
-            background: BRAND_COLORS.appBackground,
-            border: "2px solid",
-            borderRadius: "0.5em",
-            fontSize: "1.25em",
-          }}
-        >
-          skip battle
-        </button>
-        <button
-          onClick={async () => {
-            const url = `${document.baseURI}share?a=${gameA.id}&b=${gameB.id}`;
-            await navigator.clipboard.writeText(url);
-            alert(`Link to ${gameA.name} vs ${gameB.name} copied to clipoard.`);
-          }}
-          style={{
-            padding: "0.5em",
-            cursor: "pointer",
-            color: "white",
-            background: BRAND_COLORS.appBackground,
-            border: "2px solid",
-            borderRadius: "0.5em",
-            fontSize: "1.25em",
-          }}
-        >
-          share this battle
-        </button>
-      </div>
+        nextDisabled={battleState === "loading" || battleState === "upload"}
+        onShareClick={async () => {
+          const url = `${document.baseURI}share?a=${gameA.id}&b=${gameB.id}`;
+          await navigator.clipboard.writeText(url);
+          alert(`Link to ${gameA.name} vs ${gameB.name} copied to clipoard.`);
+        }}
+        nextText={battleState === "results" ? "Next Battle" : "skip"}
+        includeShare={battleState === "results"}
+      />
+      {battleState !== "results" || prevBattle === null ? null : (
+        <BattleResults battleResults={prevBattle} />
+      )}
       <GameDescriptions gameA={gameA} gameB={gameB} />
-      {previousBattleElement}
     </div>
   );
 };
