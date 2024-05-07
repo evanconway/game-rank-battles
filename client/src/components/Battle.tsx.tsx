@@ -131,7 +131,7 @@ const Battle = () => {
           await navigator.clipboard.writeText(url);
           alert(`Link to ${gameA.name} vs ${gameB.name} copied to clipoard.`);
         }}
-        nextText={battleState === "results" ? "Next Battle" : "skip"}
+        nextText={battleState === "results" ? "Next Battle" : "Skip"}
         includeShare={battleState === "results"}
       />
       {battleState !== "results" || prevBattle === null ? null : (

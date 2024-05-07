@@ -52,7 +52,7 @@ const NextOrShare = ({
             fontSize: "1.25em",
           }}
         >
-          share this battle
+          Share
         </button>
       ) : null}
     </div>
