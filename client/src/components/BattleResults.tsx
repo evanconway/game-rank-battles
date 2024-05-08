@@ -29,40 +29,22 @@ const BattleResults = ({
         paddingBottom: "0.5em",
       }}
     >
-      {/* <div style={{ ...vsBorderStyle }}>Previous Battle</div> */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "0.5em",
-        }}
-      >
-        <div
-          style={{
-            padding: "0.5em",
-            display: "grid",
-            gridTemplateColumns: "fit-content(50%) fit-content(50%)",
-            gap: "0.5em",
-          }}
-        >
-          <A href={battleResults.victor.igdbUrl}>{battleResults.victor.name}</A>
-          <div>
-            {` ${Math.floor(battleResults.victor.rankOld)} to `}
-            <span style={{ color: BRAND_COLORS.victor }}>
-              {Math.floor(battleResults.victor.rankNew)}
-            </span>
-          </div>
-          <A href={battleResults.loser.igdbUrl}>{battleResults.loser.name}</A>
-          <div>
-            {` ${Math.floor(battleResults.loser.rankOld)} to `}
-            <span style={{ color: BRAND_COLORS.loser }}>
-              {Math.floor(battleResults.loser.rankNew)}
-            </span>
-          </div>
-        </div>
-      </div>
+      <p>
+        <A href={battleResults.victor.igdbUrl}>{battleResults.victor.name}</A>
+        {` rating increased from ${battleResults.victor.rankOld} to `}
+        <span style={{ color: BRAND_COLORS.victor }}>
+          {Math.floor(battleResults.victor.rankNew)}
+        </span>
+        .
+      </p>
+      <p>
+        <A href={battleResults.loser.igdbUrl}>{battleResults.loser.name}</A>
+        {` rating decreased from ${battleResults.loser.rankOld} to `}
+        <span style={{ color: BRAND_COLORS.loser }}>
+          {Math.floor(battleResults.loser.rankNew)}
+        </span>
+        .
+      </p>
     </div>
   );
 };
