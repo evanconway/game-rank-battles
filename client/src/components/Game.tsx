@@ -5,23 +5,17 @@ const Game = ({
   onClick,
   disabled,
   isVictor,
-  hovered,
   setHovered,
 }: {
   coverUrl: string;
   onClick: () => void;
   disabled: boolean;
-  hovered: boolean;
   setHovered: (hovered: boolean) => void;
   isVictor?: boolean;
 }) => {
   let opacity = 1;
-  let background = BRAND_COLORS.appBackground;
   if (isVictor !== undefined) {
     opacity = isVictor ? 1 : 0.3;
-  } else {
-    opacity = hovered ? 0.6 : 1;
-    if (hovered) background = "white";
   }
 
   return (
@@ -40,7 +34,7 @@ const Game = ({
           border: "none",
           borderWidth: 0,
           cursor: disabled ? "default" : "pointer",
-          background: background,
+          background: BRAND_COLORS.appBackground,
         }}
         disabled={disabled}
       >
