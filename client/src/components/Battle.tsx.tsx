@@ -83,9 +83,8 @@ const Battle = () => {
         We love games and we love comparing things. Below you'll find 2 games.
         Click your favorite. Each game is given an{" "}
         <A href="https://en.wikipedia.org/wiki/Elo_rating_system">Elo Rating</A>{" "}
-        indicating how highly favored it is. Scroll to the bottom of the page to
-        see the results of your choice. Check the rankings page to see which
-        games are the most popular.
+        indicating how highly favored it is. Check the rankings page to see
+        which games are the most popular.
       </section>
       <div
         style={{
