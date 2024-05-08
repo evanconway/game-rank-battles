@@ -5,14 +5,18 @@ const GameTitle = ({
   onClick,
   disabled,
   isVictor,
+  setHovered,
 }: {
   children: string;
   onClick: () => void;
   disabled: boolean;
+  setHovered: (hovered: boolean) => void;
   isVictor?: boolean;
 }) => {
   return (
     <button
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       disabled={disabled}
       onClick={onClick}
       style={{
