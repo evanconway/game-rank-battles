@@ -5,12 +5,10 @@ const Game = ({
   onClick,
   disabled,
   isVictor,
-  setHovered,
 }: {
   coverUrl: string;
   onClick: () => void;
   disabled: boolean;
-  setHovered: (hovered: boolean) => void;
   isVictor?: boolean;
 }) => {
   let opacity = 1;
@@ -20,8 +18,6 @@ const Game = ({
 
   return (
     <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       style={{
         width: "50%",
       }}

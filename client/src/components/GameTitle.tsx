@@ -5,25 +5,14 @@ const GameTitle = ({
   onClick,
   disabled,
   isVictor,
-  hovered,
-  setHovered,
 }: {
   children: string;
   onClick: () => void;
   disabled: boolean;
-  hovered: boolean;
-  setHovered: (hovered: boolean) => void;
   isVictor?: boolean;
 }) => {
-  let titleColor = hovered ? "white" : BRAND_COLORS.text;
-  if (isVictor !== undefined) {
-    titleColor = isVictor ? BRAND_COLORS.victor : BRAND_COLORS.loser;
-  }
-
   return (
     <button
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       disabled={disabled}
       onClick={onClick}
       style={{
@@ -33,7 +22,12 @@ const GameTitle = ({
         border: "none",
         cursor: disabled ? "default" : "pointer",
         background: BRAND_COLORS.appBackground,
-        color: titleColor,
+        color:
+          isVictor === undefined
+            ? "white"
+            : isVictor
+              ? BRAND_COLORS.victor
+              : BRAND_COLORS.loser,
       }}
     >
       <h2>{children}</h2>

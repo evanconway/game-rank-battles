@@ -62,14 +62,6 @@ const Battle = () => {
   const gameBIsVictor =
     prevBattle === null ? undefined : prevBattle.victor.name === gameB.name;
 
-  const [gameAHoverTitle, setGameAHoverTitle] = useState(false);
-  const [gameBHoverTitle, setGameBHoverTitle] = useState(false);
-  const [gameAHoverCard, setGameAHoverCard] = useState(false);
-  const [gameBHoverCard, setGameBHoverCard] = useState(false);
-
-  const gameAHovered = gameAHoverTitle || gameAHoverCard;
-  const gameBHovered = gameBHoverTitle || gameBHoverCard;
-
   return (
     <div>
       <section
@@ -97,8 +89,6 @@ const Battle = () => {
       </div>
       <div style={{ display: "flex" }}>
         <GameTitle
-          hovered={gameAHovered}
-          setHovered={setGameAHoverTitle}
           disabled={battleState !== "view"}
           onClick={() => submitVictor(gameA, gameB)}
           isVictor={gameAIsVictor}
@@ -106,8 +96,6 @@ const Battle = () => {
           {gameA.name}
         </GameTitle>
         <GameTitle
-          hovered={gameBHovered}
-          setHovered={setGameBHoverTitle}
           disabled={battleState !== "view"}
           onClick={() => submitVictor(gameB, gameA)}
           isVictor={gameBIsVictor}
@@ -117,14 +105,12 @@ const Battle = () => {
       </div>
       <div style={{ display: "flex" }}>
         <Game
-          setHovered={setGameAHoverCard}
           coverUrl={gameA.coverUrl}
           onClick={() => submitVictor(gameA, gameB)}
           disabled={battleState !== "view"}
           isVictor={gameAIsVictor}
         />
         <Game
-          setHovered={setGameBHoverCard}
           coverUrl={gameB.coverUrl}
           onClick={() => submitVictor(gameB, gameA)}
           disabled={battleState !== "view"}
