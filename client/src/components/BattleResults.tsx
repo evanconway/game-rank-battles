@@ -31,7 +31,7 @@ const BattleResults = ({
     >
       <p>
         <A href={battleResults.victor.igdbUrl}>{battleResults.victor.name}</A>
-        {` rating increased from ${battleResults.victor.rankOld} to `}
+        {` rating increased from ${Math.floor(battleResults.victor.rankOld)} to `}
         <span style={{ color: BRAND_COLORS.victor }}>
           {Math.floor(battleResults.victor.rankNew)}
         </span>
@@ -39,7 +39,7 @@ const BattleResults = ({
       </p>
       <p>
         <A href={battleResults.loser.igdbUrl}>{battleResults.loser.name}</A>
-        {` rating decreased from ${battleResults.loser.rankOld} to `}
+        {` rating decreased from ${Math.floor(battleResults.loser.rankOld)} to `}
         <span style={{ color: BRAND_COLORS.loser }}>
           {Math.floor(battleResults.loser.rankNew)}
         </span>
