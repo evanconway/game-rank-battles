@@ -31,3 +31,6 @@ Dynamically generating images seems to be the correct path. We were able to make
 
 8th of January, 2026
 Just tried to load another project on my server, but I ran into bugs due to an oudated node version. Well updating the node version broke this app. So I'm going to have to update everything here as well. Though I think this is a great example of a case where knowing docker would save me a ton of trouble. I'm still going to try and update this though... since I think it's a good exercise.
+
+10th of January, 2026
+Actually, it was just the canvas package that was giving us trouble. So we'll lave it at that. However, I'm still having a very tough time getting this started with my process manager. There could be a number of issues, but one issue I've confirmed is the location of the data base file. When trying to start the build app it creates the data base file in the dir of the process manager file. This isn't the behavior I want. So I'm going to try adding an env that dictates the location of the database file, instead of letting the app decide some relative location. In general we should avoid relative locations.
