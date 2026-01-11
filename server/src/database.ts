@@ -1,8 +1,12 @@
+import path from "path";
+import { config } from "dotenv";
 import { Database as Sqlite3Database } from "sqlite3";
 import { open } from "sqlite";
 import { createTables } from "./createTables";
 import { Game } from "./models";
 import { eloGetNewRanks } from "./elo";
+
+config();
 
 // function signatures
 export type DatabaseAddPlatform = (
@@ -31,12 +35,18 @@ export type DatabaseGetTotalNumOfRankPages = () => Promise<number>;
 
 const RANK_GAMES_PER_PAGE = 10;
 
+const databaseFileDir = process.env.DATABASE_FILE_DIR;
+console.log(`DATABASE_FILE_DIR: ${databaseFileDir}`);
+const databaseFilePath = path.resolve(databaseFileDir ?? "", `database.db`);
+
 // function definitions
 const getDatabaseFunctions = async () => {
+  console.log(`opening database at: ${databaseFilePath}`);
   const db = await open({
-    filename: "database.db",
+    filename: databaseFilePath,
     driver: Sqlite3Database,
   });
+  console.log(`database opened`);
 
   await createTables(db);
 

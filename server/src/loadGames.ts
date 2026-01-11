@@ -41,8 +41,7 @@ const platforms = [
 const loadGames = async () => {
   const { getPlatforms, getGamesByPlatform, getGameCoverArtUrls } =
     await getAPIFunctions();
-  const { databaseAddPlatform, databaseAddGame, databaseDeleteAllGames } =
-    await getDatabaseFunctions();
+  const { databaseAddPlatform, databaseAddGame } = await getDatabaseFunctions();
 
   // setup platforms
   const igdbPlatforms = await getPlatforms();
